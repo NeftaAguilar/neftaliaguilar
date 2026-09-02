@@ -2,7 +2,7 @@ import { Button } from "./ui";
 
 const links = {
   github: "https://github.com/NeftaAguilar",
-  linkedin: "https://www.linkedin.com/in/neftaliaguilar",
+  linkedin: "https://www.linkedin.com/in/neftaliaguilaralvarez/",
   email: "mailto:hola@neftaliaguilar.com",
   npmPackage: "https://www.npmjs.com/package/@neftaliaguilar/ui",
 };
