@@ -1,10 +1,13 @@
+import Link from "next/link";
 import { Button } from "./ui";
+import { SectionHeading } from "@/app/components/section-heading";
+import { PostCard } from "@/app/components/post-card";
+import { getLatestPosts } from "@/lib/posts";
 
 const links = {
   github: "https://github.com/NeftaAguilar",
   linkedin: "https://www.linkedin.com/in/neftaliaguilaralvarez/",
   email: "mailto:hola@neftaliaguilar.com",
-  npmPackage: "https://www.npmjs.com/package/@neftaliaguilar/ui",
 };
 
 const currentlyExploring = [
@@ -127,39 +130,9 @@ const skillGroups = [
   },
 ];
 
-const packageComponents = [
-  { name: "Button", note: "5 variants, 3 sizes, width-stable loading" },
-  { name: "TextField", note: "Label required; hint + error wiring" },
-  { name: "Textarea", note: "Live character count that never truncates" },
-  { name: "Select", note: "Trigger-width matching, grouping" },
-  { name: "Switch", note: "Composited thumb transition" },
-  { name: "Dialog", note: "Title required; focus trap and return" },
-  { name: "DropdownMenu", note: "Decorative shortcuts, destructive items" },
-  { name: "Tooltip", note: "Describes, never names" },
-  { name: "Tabs", note: "Sliding indicator, measured in JS, moved in CSS" },
-  { name: "Toast", note: "Swipe to dismiss, action altText required" },
-];
-
-function SectionHeading({
-  eyebrow,
-  title,
-}: {
-  eyebrow: string;
-  title: string;
-}) {
-  return (
-    <div className="mb-10">
-      <p className="text-sm font-medium uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
-        {eyebrow}
-      </p>
-      <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-3xl">
-        {title}
-      </h2>
-    </div>
-  );
-}
-
 export default function Home() {
+  const latestPosts = getLatestPosts(3);
+
   return (
     <div className="flex flex-1 flex-col bg-white font-sans text-zinc-900 dark:bg-black dark:text-zinc-100">
       {/* Hero */}
@@ -236,6 +209,23 @@ export default function Home() {
           </ol>
         </section>
 
+        {/* Latest posts */}
+        {latestPosts.length > 0 && (
+          <section aria-labelledby="blog-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
+            <SectionHeading eyebrow="Writing" title="Latest posts" />
+            <div className="space-y-4">
+              {latestPosts.map((post) => (
+                <PostCard key={post.slug} post={post} />
+              ))}
+            </div>
+            <div className="mt-6">
+              <Button asChild variant="outline">
+                <Link href="/blog">View all posts</Link>
+              </Button>
+            </div>
+          </section>
+        )}
+
         {/* Experience */}
         <section aria-labelledby="experience-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
           <SectionHeading eyebrow="Experience" title="Where I've worked" />
@@ -283,52 +273,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* First npm package */}
-        <section aria-labelledby="package-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
-          <SectionHeading eyebrow="Open source" title="I published my first npm package" />
-          <p className="max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
-            <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-sm dark:bg-zinc-900">
-              @neftaliaguilar/ui
-            </code>{" "}
-            is a small, accessible React component library built on Radix
-            Primitives, styled with CSS Modules and themed with CSS custom
-            properties — ten components, two runtime dependencies, one
-            stylesheet. This page is built with it.
-          </p>
-          <div className="mt-6 overflow-x-auto">
-            <table className="w-full border-collapse text-left text-sm">
-              <thead>
-                <tr className="border-b border-zinc-200 text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
-                  <th className="py-2 pr-4 font-medium">Component</th>
-                  <th className="py-2 font-medium">Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {packageComponents.map((component) => (
-                  <tr
-                    key={component.name}
-                    className="border-b border-zinc-100 dark:border-zinc-900"
-                  >
-                    <td className="py-2 pr-4 font-mono text-xs text-zinc-800 dark:text-zinc-200">
-                      {component.name}
-                    </td>
-                    <td className="py-2 text-zinc-600 dark:text-zinc-400">
-                      {component.note}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-6">
-            <Button asChild variant="outline">
-              <a href={links.npmPackage} target="_blank" rel="noopener noreferrer">
-                View on npm
-              </a>
-            </Button>
-          </div>
-        </section>
-
         {/* Education */}
         <section aria-labelledby="education-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
           <SectionHeading eyebrow="Background" title="Education" />
@@ -355,6 +299,9 @@ export default function Home() {
             © {new Date().getFullYear()} Neftali Aguilar.
           </p>
           <div className="flex gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+            <Link href="/blog" className="hover:text-zinc-950 dark:hover:text-zinc-50">
+              Blog
+            </Link>
             <a href={links.email} className="hover:text-zinc-950 dark:hover:text-zinc-50">
               Email
             </a>
