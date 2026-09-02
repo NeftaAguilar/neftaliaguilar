@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
+import { Button } from "@/app/ui";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 import { mdxComponents } from "./mdx-components";
 
@@ -48,8 +51,11 @@ export default async function BlogPost({
   return (
     <div className="flex flex-1 flex-col bg-white font-sans text-zinc-900 dark:bg-black dark:text-zinc-100">
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-24 sm:px-8">
+        <Button asChild variant="ghost" size="sm">
+          <Link href="/blog">← Back to blog</Link>
+        </Button>
         <article>
-          <header className="mb-10">
+          <header className="mb-10 mt-8">
             <p className="text-sm text-zinc-500 dark:text-zinc-400">
               {formatDate(post.date)}
             </p>
@@ -69,7 +75,11 @@ export default async function BlogPost({
               </ul>
             )}
           </header>
-          <MDXRemote source={post.content} components={mdxComponents} />
+          <MDXRemote
+            source={post.content}
+            components={mdxComponents}
+            options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+          />
         </article>
       </main>
     </div>
