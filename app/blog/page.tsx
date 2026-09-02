@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { Button } from "@/app/ui";
 import { SectionHeading } from "@/app/components/section-heading";
 import { PostCard } from "@/app/components/post-card";
 import { getAllPosts } from "@/lib/posts";
@@ -15,7 +17,12 @@ export default function BlogIndex() {
   return (
     <div className="flex flex-1 flex-col bg-white font-sans text-zinc-900 dark:bg-black dark:text-zinc-100">
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-24 sm:px-8">
-        <SectionHeading eyebrow="Writing" title="Blog" />
+        <Button asChild variant="ghost" size="sm">
+          <Link href="/">← Back to home</Link>
+        </Button>
+        <div className="mt-8">
+          <SectionHeading eyebrow="Writing" title="Blog" />
+        </div>
         <div className="space-y-4">
           {posts.map((post) => (
             <PostCard key={post.slug} post={post} />
