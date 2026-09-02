@@ -1,0 +1,41 @@
+---
+title: "Open source: I published my first npm package"
+date: "2026-08-15"
+excerpt: "Publishing @neftaliaguilar/ui taught me more about API design and maintenance burden than any internal component library ever did."
+tags: ["Open Source", "React", "Design Systems"]
+---
+
+For years I built component libraries the way most frontend engineers do: inside a monorepo, for one product, with the freedom to break anything because I could grep every call site. This year I wanted to see what changes when that safety net disappears — so I published one for real, as a public npm package with strangers depending on it.
+
+## What it is
+
+[`@neftaliaguilar/ui`](https://www.npmjs.com/package/@neftaliaguilar/ui) is a small, accessible React component library built on [Radix Primitives](https://www.radix-ui.com/primitives), styled with CSS Modules and themed with CSS custom properties. Ten components, two runtime dependencies, one stylesheet. This site is built with it — the buttons in the hero above are the package's own `<Button />`.
+
+| Component | Notes |
+| --- | --- |
+| `Button` | 5 variants, 3 sizes, width-stable loading |
+| `TextField` | Label required; hint + error wiring |
+| `Textarea` | Live character count that never truncates |
+| `Select` | Trigger-width matching, grouping |
+| `Switch` | Composited thumb transition |
+| `Dialog` | Title required; focus trap and return |
+| `DropdownMenu` | Decorative shortcuts, destructive items |
+| `Tooltip` | Describes, never names |
+| `Tabs` | Sliding indicator, measured in JS, moved in CSS |
+| `Toast` | Swipe to dismiss, action altText required |
+
+## Why publish instead of copy-paste
+
+I had a version of most of these components scattered across old projects. The temptation is always to just copy the files into the next repo. What pushed me to package it properly:
+
+- **API pressure.** When the only consumer is the app sitting next to the library, a bad prop name is a five-minute fix. When the consumer is "anyone who `npm install`s this," every prop is a promise. Writing the types for `Toast`'s `action.altText` as *required* — not optional — was a deliberate decision to make an accessibility mistake impossible to ship, not just discouraged.
+- **Versioning discipline.** Semver stops being a suggestion once someone else's build can break. I had to actually think about what counts as a breaking change (renaming a CSS custom property counts; adding a new variant doesn't) instead of shipping whatever felt right that day.
+- **Documentation as a design tool.** Writing down *why* `Tooltip` "describes, never names" — it should never be the only source of an accessible name — forced me to catch two components that violated their own rule before release.
+
+## What surprised me
+
+The hard part wasn't any single component — it was the boring infrastructure: a build that emits both types and CSS Modules cleanly, a changelog that doesn't lie, and a README a stranger could act on without asking me anything. That's usually the first thing to get cut under deadline pressure in an internal library, and it's the first thing an external user judges you on.
+
+## What's next
+
+I'm using this package to dogfood every new component before it lands anywhere else — this portfolio is the canary. Next up is bringing `Combobox` and `DatePicker` in, both of which I've avoided so far because Radix doesn't give you a primitive to lean on for either.
