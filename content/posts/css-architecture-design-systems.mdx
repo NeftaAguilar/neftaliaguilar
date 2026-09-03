@@ -1,0 +1,534 @@
+---
+title: "Your Design System Is Only as Good as Your CSS Architecture"
+date: "2026-09-03"
+excerpt: "A good Design System isn't just a collection of components — it's a system of rules that makes UI predictable. And that starts with understanding CSS."
+tags: ["Design Systems", "CSS", "AI"]
+---
+
+A good Design System isn't just a collection of components.
+
+It's a system of rules that makes UI predictable.
+
+When we talk about Design Systems, we usually talk about components, tokens, documentation, accessibility, Figma, or perhaps the technology we're using to build them.
+
+But underneath all of that is something easy to overlook:
+
+**CSS.**
+
+CSS is one of the foundations of a good Design System.
+
+And understanding how CSS behaves becomes increasingly important as our systems grow — especially now that AI can generate UI and styling in seconds.
+
+---
+
+## Tailwind is a tool. A Design System is an architecture.
+
+Almost every modern Design System conversation eventually leads to Tailwind.
+
+And for good reason.
+
+Tailwind is powerful, productive, and can scale very well when used with good conventions and architecture.
+
+But I think it's important to separate two concepts:
+
+> **Tailwind = tool**
+> **Design System = architecture + rules + tokens + components + conventions**
+
+Tailwind can be part of a great Design System.
+
+But Tailwind itself isn't the Design System.
+
+The same principle applies to other approaches.
+
+You can build a scalable Design System using:
+
+* Tailwind
+* CSS Modules
+* Plain CSS
+* CSS variables
+* CSS-in-JS
+* Or combinations of these approaches
+
+The styling tool is important.
+
+But the architecture underneath it is arguably more important.
+
+The question shouldn't only be:
+
+**"Which styling solution are we using?"**
+
+It should also be:
+
+**"What rules have we established for how styles are allowed to behave?"**
+
+---
+
+## CSS fundamentals become Design System fundamentals
+
+Recently, I've been going back to some CSS fundamentals that I probably didn't appreciate enough earlier in my career:
+
+* Cascade
+* Origin
+* Importance
+* Layers
+* Specificity
+* Source order
+* Inheritance
+* Custom properties
+* `@layer`
+* `:where()`
+* `:is()`
+* Scoping
+
+At first glance, these can look like isolated CSS features.
+
+But when you build a Design System, they become architectural tools.
+
+For example, consider specificity.
+
+A component starts simple:
+
+```css
+.button {
+  color: white;
+}
+```
+
+Then someone needs a variation:
+
+```css
+.card .button {
+  color: black;
+}
+```
+
+Then another page needs another exception:
+
+```css
+.dashboard .card .button {
+  color: blue;
+}
+```
+
+And eventually someone adds:
+
+```css
+.page .dashboard .card .button {
+  color: red !important;
+}
+```
+
+The problem isn't that someone doesn't know CSS.
+
+The problem is that the system has started encouraging conflicts.
+
+We're no longer designing a system.
+
+We're fighting the system.
+
+---
+
+## Good CSS architecture isn't about stronger selectors
+
+One of the things I find interesting about CSS architecture is that the solution to a styling conflict isn't always:
+
+**"How can I make my selector stronger?"**
+
+Sometimes the better question is:
+
+**"Why does this selector need to be stronger?"**
+
+That's where cascade layers become interesting.
+
+Instead of relying entirely on specificity and source order, we can establish explicit architectural boundaries:
+
+```css
+@layer reset, tokens, base, components, layouts, utilities;
+```
+
+Now we're communicating something about the system.
+
+Reset styles belong here.
+
+Tokens belong here.
+
+Base styles belong here.
+
+Components belong here.
+
+Utilities belong here.
+
+The important part isn't the exact names.
+
+The important part is that we're establishing **rules for how styles interact**.
+
+That's architecture.
+
+---
+
+## Specificity should be predictable
+
+Specificity is useful.
+
+But excessive specificity creates a system that's difficult to reason about.
+
+If every component requires increasingly specific selectors to override something else, we're creating a dependency graph that's mostly invisible.
+
+Eventually, developers start asking:
+
+> "Why doesn't my CSS work?"
+
+And the answer becomes:
+
+> "Because somewhere else there is a selector with higher specificity."
+
+That's not a particularly healthy Design System.
+
+A good system should make common customization easy.
+
+This is one reason tools like `:where()` are interesting.
+
+Because:
+
+```css
+:where(.button) {
+  ...
+}
+```
+
+has zero specificity.
+
+That means consumers can override it without needing to start a specificity war.
+
+The broader lesson isn't:
+
+**"Always use `:where()`."**
+
+It's:
+
+**"Think about how much resistance your architecture creates when someone needs to customize a component."**
+
+---
+
+## Tokens are more than variables
+
+Custom properties are another fundamental part of modern Design Systems.
+
+For example:
+
+```css
+:root {
+  --color-primary: #1b4332;
+  --color-background: #ffffff;
+  --color-foreground: #111111;
+}
+```
+
+A component can consume those values:
+
+```css
+.button {
+  background: var(--color-primary);
+}
+```
+
+But the more interesting part is what happens when we stop thinking only about raw values and start thinking about **semantic tokens**.
+
+Instead of:
+
+```css
+--green-700
+--gray-100
+--gray-900
+```
+
+we can have:
+
+```css
+--color-primary
+--color-background
+--color-foreground
+--color-muted
+--color-destructive
+```
+
+Now the component doesn't need to know which specific color it is using.
+
+It knows what that color **means**.
+
+That distinction becomes especially powerful when we introduce themes.
+
+---
+
+## Light and dark mode become a token problem
+
+Imagine a component:
+
+```css
+.card {
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+```
+
+Then the theme can change the values:
+
+```css
+:root {
+  --color-background: white;
+  --color-foreground: black;
+}
+
+.dark {
+  --color-background: #111111;
+  --color-foreground: white;
+}
+```
+
+The component doesn't need separate styling logic for every theme.
+
+It consumes the same semantic tokens.
+
+The architecture becomes:
+
+**Component → semantic token → theme value**
+
+instead of:
+
+**Component → hardcoded color → special dark-mode override**
+
+That difference becomes significant as a Design System grows.
+
+---
+
+## This is where CSS architecture meets component architecture
+
+A Design System isn't just a collection of React components.
+
+It's a collection of relationships.
+
+For example:
+
+```text
+Design Token
+     ↓
+Semantic Token
+     ↓
+Component
+     ↓
+Variant
+     ↓
+Application
+```
+
+Each layer should have a responsibility.
+
+A component shouldn't need to know everything about the application.
+
+An application shouldn't need to know how the component internally achieves its styling.
+
+A theme shouldn't require every component to be rewritten.
+
+And a utility shouldn't need to defeat a component using increasingly aggressive selectors.
+
+When these boundaries are clear, the system becomes easier to extend.
+
+---
+
+## Then AI enters the picture
+
+This is where this topic becomes even more interesting to me.
+
+AI can generate a React component in seconds.
+
+It can generate Tailwind classes.
+
+It can convert a Figma design into code.
+
+It can fix a visual bug.
+
+It can create a dark mode.
+
+It can even refactor CSS.
+
+That's incredibly useful.
+
+But there's a problem.
+
+AI is very good at solving the **local problem**.
+
+And Design Systems are about solving the **system problem**.
+
+Imagine asking an AI agent:
+
+> "The button doesn't look right in this context. Fix it."
+
+It might produce:
+
+```css
+.dashboard .card .actions .button {
+  ...
+}
+```
+
+And maybe that fixes the immediate problem.
+
+But perhaps the correct solution was to use an existing token.
+
+Or a component variant.
+
+Or a cascade layer.
+
+Or a missing semantic token.
+
+Or a broken component API.
+
+The code might work.
+
+But the architecture might get worse.
+
+---
+
+## I don't want AI to generate more CSS
+
+This is probably the biggest change in how I think about AI-assisted development.
+
+I don't want to become better at asking AI to generate more code.
+
+I want to become better at giving AI **better constraints**.
+
+Instead of:
+
+> "Make this button look like this."
+
+I want to be able to say:
+
+> "Use the existing button component."
+
+> "Use the existing semantic token."
+
+> "Don't introduce a new color."
+
+> "Don't increase selector specificity."
+
+> "Don't use `!important`."
+
+> "Use the existing component layer."
+
+> "Follow the Design System conventions."
+
+That's a very different relationship with AI.
+
+The AI is still doing the implementation.
+
+But the engineer is responsible for the architecture.
+
+---
+
+## AI makes fundamentals more valuable, not less
+
+It's tempting to think that because AI can write CSS, we don't need to understand CSS deeply anymore.
+
+I think the opposite is true.
+
+The easier it becomes to generate code, the more important it becomes to understand the system that code is entering.
+
+If I don't understand specificity, I can't recognize a specificity problem.
+
+If I don't understand cascade layers, I can't tell AI when a new override is the wrong solution.
+
+If I don't understand custom properties, I can't design a useful token architecture.
+
+If I don't understand scoping, I can't reason about style boundaries.
+
+AI can generate the implementation.
+
+But someone still needs to decide whether that implementation belongs in the system.
+
+---
+
+## The real goal of a Design System
+
+For me, the goal isn't to create the most sophisticated styling setup.
+
+It's not about having the most components.
+
+It's not about using Tailwind because everyone else is using Tailwind.
+
+And it's not about avoiding Tailwind either.
+
+The goal is to create a system where developers can make changes **without constantly fighting the system**.
+
+A good Design System should make the correct implementation feel natural.
+
+You shouldn't need to know a secret selector to override a component.
+
+You shouldn't need `!important` everywhere.
+
+You shouldn't need five levels of nesting to change a style.
+
+You shouldn't need to duplicate colors for dark mode.
+
+And you shouldn't need to ask AI to "try another class" ten times until something visually works.
+
+The architecture should guide you toward the correct solution.
+
+---
+
+## The tool matters. The architecture matters more.
+
+Tailwind is great.
+
+CSS Modules are great.
+
+Plain CSS can be great.
+
+CSS-in-JS can be useful.
+
+Different teams will make different choices based on their products, constraints, teams, and ecosystems.
+
+I don't think there is a single styling technology that automatically creates a good Design System.
+
+Because the technology is only one piece of the puzzle.
+
+What matters is what we build around it:
+
+**Architecture + rules + tokens + components + conventions.**
+
+That's what turns a collection of styles into a system.
+
+---
+
+## And that's what I want to get better at in the AI era
+
+I don't want to compete with AI at writing CSS.
+
+That's not particularly interesting anymore.
+
+I want to understand the fundamentals well enough to recognize when the generated solution is good, when it's fragile, and when it's making the architecture worse.
+
+Because the future of frontend development probably isn't:
+
+**Human writes CSS → AI replaces human.**
+
+It's closer to:
+
+**Human defines the system → AI implements within the system.**
+
+And that requires a different skill set.
+
+Less focus on remembering syntax.
+
+More focus on understanding systems.
+
+Less focus on generating code.
+
+More focus on defining constraints.
+
+Less focus on fixing individual styling problems.
+
+More focus on building architectures where those problems don't happen in the first place.
+
+**AI can write the CSS.**
+
+**I want to understand how it works — and be able to tell AI how it should work.**
