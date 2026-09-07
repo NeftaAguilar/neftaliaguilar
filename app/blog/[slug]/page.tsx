@@ -49,7 +49,7 @@ export default async function BlogPost({
   }
 
   return (
-    <div className="flex flex-1 flex-col bg-white font-sans text-zinc-900 dark:bg-black dark:text-zinc-100">
+    <div className="flex flex-1 flex-col bg-white text-zinc-900 dark:bg-black dark:text-zinc-100">
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-24 sm:px-8">
         <Button asChild variant="ghost" size="sm">
           <Link href="/blog">← Back to blog</Link>

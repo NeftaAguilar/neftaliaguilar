@@ -1,4 +1,4 @@
 allowBuilds:
   unrs-resolver: true
 minimumReleaseAgeExclude:
-  - '@neftaliaguilar/ui@0.1.0'
+  - "@neftaliaguilar/ui@0.1.0"
