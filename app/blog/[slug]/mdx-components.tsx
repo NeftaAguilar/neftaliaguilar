@@ -1,6 +1,10 @@
 import type { ComponentPropsWithoutRef } from "react";
 import Image from "next/image";
 
+function cx(...classes: Array<string | undefined>) {
+  return classes.filter(Boolean).join(" ");
+}
+
 /**
  * Embeds a YouTube/Vimeo/etc. video by URL inside MDX content, e.g.:
  * <VideoEmbed url="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Demo" />
@@ -20,67 +24,99 @@ function VideoEmbed({ url, title }: { url: string; title: string }) {
 }
 
 export const mdxComponents = {
-  h2: (props: ComponentPropsWithoutRef<"h2">) => (
+  h2: ({ className, ...props }: ComponentPropsWithoutRef<"h2">) => (
     <h2
-      className="mt-12 text-xl font-semibold tracking-tight text-foreground"
+      className={cx(
+        "mt-12 text-xl font-semibold tracking-tight text-foreground",
+        className,
+      )}
       {...props}
     />
   ),
-  h3: (props: ComponentPropsWithoutRef<"h3">) => (
+  h3: ({ className, ...props }: ComponentPropsWithoutRef<"h3">) => (
     <h3
-      className="mt-8 text-lg font-semibold tracking-tight text-foreground"
+      className={cx(
+        "mt-8 text-lg font-semibold tracking-tight text-foreground",
+        className,
+      )}
       {...props}
     />
   ),
-  p: (props: ComponentPropsWithoutRef<"p">) => (
-    <p className="mt-4 text-base leading-7 text-muted" {...props} />
+  p: ({ className, ...props }: ComponentPropsWithoutRef<"p">) => (
+    <p
+      className={cx("mt-4 text-base leading-7 text-muted", className)}
+      {...props}
+    />
   ),
-  ul: (props: ComponentPropsWithoutRef<"ul">) => (
+  ul: ({ className, ...props }: ComponentPropsWithoutRef<"ul">) => (
     <ul
-      className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-muted"
+      className={cx(
+        "mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-muted",
+        className,
+      )}
       {...props}
     />
   ),
-  ol: (props: ComponentPropsWithoutRef<"ol">) => (
+  ol: ({ className, ...props }: ComponentPropsWithoutRef<"ol">) => (
     <ol
-      className="mt-4 list-decimal space-y-2 pl-5 text-base leading-7 text-muted"
+      className={cx(
+        "mt-4 list-decimal space-y-2 pl-5 text-base leading-7 text-muted",
+        className,
+      )}
       {...props}
     />
   ),
   li: (props: ComponentPropsWithoutRef<"li">) => <li {...props} />,
-  a: (props: ComponentPropsWithoutRef<"a">) => (
+  a: ({ className, ...props }: ComponentPropsWithoutRef<"a">) => (
     <a
-      className="font-medium text-foreground underline underline-offset-2"
+      className={cx(
+        "font-medium text-foreground underline underline-offset-2",
+        className,
+      )}
       target={props.href?.startsWith("http") ? "_blank" : undefined}
       rel={props.href?.startsWith("http") ? "noopener noreferrer" : undefined}
       {...props}
     />
   ),
-  code: (props: ComponentPropsWithoutRef<"code">) => (
+  code: ({ className, ...props }: ComponentPropsWithoutRef<"code">) => (
     <code
-      className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm"
+      className={cx(
+        "rounded bg-surface px-1.5 py-0.5 font-mono text-sm",
+        className,
+      )}
       {...props}
     />
   ),
-  table: (props: ComponentPropsWithoutRef<"table">) => (
+  table: ({ className, ...props }: ComponentPropsWithoutRef<"table">) => (
     <div className="mt-6 overflow-x-auto">
-      <table className="w-full border-collapse text-left text-sm" {...props} />
+      <table
+        className={cx("w-full border-collapse text-left text-sm", className)}
+        {...props}
+      />
     </div>
   ),
-  thead: (props: ComponentPropsWithoutRef<"thead">) => (
-    <thead className="border-b border-border text-muted" {...props} />
+  thead: ({ className, ...props }: ComponentPropsWithoutRef<"thead">) => (
+    <thead
+      className={cx("border-b border-border text-muted", className)}
+      {...props}
+    />
   ),
-  th: (props: ComponentPropsWithoutRef<"th">) => (
-    <th className="py-2 pr-4 font-medium" {...props} />
+  th: ({ className, ...props }: ComponentPropsWithoutRef<"th">) => (
+    <th className={cx("py-2 pr-4 font-medium", className)} {...props} />
   ),
-  tr: (props: ComponentPropsWithoutRef<"tr">) => (
-    <tr className="border-b border-border" {...props} />
+  tr: ({ className, ...props }: ComponentPropsWithoutRef<"tr">) => (
+    <tr className={cx("border-b border-border", className)} {...props} />
   ),
-  td: (props: ComponentPropsWithoutRef<"td">) => (
-    <td className="py-2 pr-4 text-muted" {...props} />
+  td: ({ className, ...props }: ComponentPropsWithoutRef<"td">) => (
+    <td className={cx("py-2 pr-4 text-muted", className)} {...props} />
   ),
-  img: (props: ComponentPropsWithoutRef<"img">) => (
-    <span className="my-8 block overflow-hidden rounded-2xl border border-border">
+  img: ({ className, ...props }: ComponentPropsWithoutRef<"img">) => (
+    <span
+      className={cx(
+        "my-8 block overflow-hidden rounded-2xl border border-border",
+        className,
+      )}
+    >
       {/* eslint-disable-next-line @next/next/no-img-element -- MDX passes plain img props; dimensions aren't known statically */}
       <img className="w-full" alt="" {...props} />
     </span>
