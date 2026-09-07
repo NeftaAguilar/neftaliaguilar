@@ -10,13 +10,6 @@ const links = {
   email: "mailto:hola@neftaliaguilar.com",
 };
 
-const currentlyExploring = [
-  "Vercel AI SDK",
-  "Retrieval-Augmented Generation (RAG)",
-  "AI agents & tool use",
-  "LLM-powered developer workflows",
-];
-
 const workflowSteps = [
   {
     title: "Plan with a frontier model",
@@ -161,13 +154,16 @@ export default function Home() {
           Neftali Aguilar
         </p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-          Senior Software Engineer, focused on the frontend.
+          I build the layer where design becomes code.
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-          I build scalable React and TypeScript products and the design systems
-          that hold them together. Currently exploring AI-augmented engineering
-          — the Vercel AI SDK, retrieval-augmented generation, and agentic
-          developer workflows.
+          Senior software engineer focused on design systems, interaction
+          detail, and accessibility — React and TypeScript products built on
+          component systems teams can trust.
+        </p>
+        <p className="mt-3 max-w-2xl text-sm text-muted">
+          Currently deepening AI-augmented engineering: the Vercel AI SDK, RAG,
+          and agentic developer workflows.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button asChild variant="solid" size="lg">
@@ -187,60 +183,6 @@ export default function Home() {
       </header>
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8">
-        {/* Currently exploring */}
-        <section
-          aria-labelledby="exploring-heading"
-          className="border-t border-border py-16"
-        >
-          <SectionHeading
-            eyebrow="Currently studying"
-            title="AI engineering, deliberately"
-          />
-          <p className="max-w-2xl text-base leading-7 text-muted">
-            Beyond day-to-day frontend architecture, I&apos;m deep in the tools
-            and patterns behind AI-native products.
-          </p>
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {currentlyExploring.map((item) => (
-              <li
-                key={item}
-                className="rounded-full border border-border px-4 py-2 text-sm font-medium text-muted"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* AI-Augmented Development Workflow */}
-        <section
-          aria-labelledby="workflow-heading"
-          className="border-t border-border py-16"
-        >
-          <SectionHeading
-            eyebrow="How I build"
-            title="AI-augmented development workflow"
-          />
-          <ol className="grid gap-6 sm:grid-cols-2">
-            {workflowSteps.map((step, index) => (
-              <li
-                key={step.title}
-                className="rounded-2xl border border-border p-5"
-              >
-                <span className="text-sm font-medium text-muted">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-2 font-semibold text-foreground">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-muted">
-                  {step.description}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
         {/* Latest posts */}
         {latestPosts.length > 0 && (
           <section
@@ -285,6 +227,35 @@ export default function Home() {
               </article>
             ))}
           </div>
+        </section>
+
+        {/* AI-Augmented Development Workflow */}
+        <section
+          aria-labelledby="workflow-heading"
+          className="border-t border-border py-16"
+        >
+          <SectionHeading
+            eyebrow="How I build"
+            title="AI-augmented development workflow"
+          />
+          <ol className="grid gap-6 sm:grid-cols-2">
+            {workflowSteps.map((step, index) => (
+              <li
+                key={step.title}
+                className="rounded-2xl border border-border p-5"
+              >
+                <span className="text-sm font-medium text-muted">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-2 font-semibold text-foreground">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted">
+                  {step.description}
+                </p>
+              </li>
+            ))}
+          </ol>
         </section>
 
         {/* Skills */}
