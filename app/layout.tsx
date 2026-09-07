@@ -58,9 +58,10 @@ export const metadata: Metadata = {
 };
 
 // @neftaliaguilar/ui themes via a `data-theme` attribute rather than
-// `prefers-color-scheme`, so this syncs it to the OS preference before
-// hydration to avoid a flash of the wrong theme.
-const themeSyncScript = `(function(){try{if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark')}}catch(e){}})()`;
+// `prefers-color-scheme`. Set it before hydration to avoid a flash of the
+// wrong theme, preferring a persisted choice (written by a future theme
+// toggle) over the OS preference.
+const themeSyncScript = `(function(){try{var s=localStorage.getItem('theme');var t=s==='light'||s==='dark'?s:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

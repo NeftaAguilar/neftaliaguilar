@@ -1,26 +1,24 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* @neftaliaguilar/ui themes via a `data-theme` attribute (see the
+   pre-hydration script in app/layout.tsx) rather than
+   `prefers-color-scheme`, so `dark:` here follows the same signal instead
+   of a second, independent one. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--nef-bg);
+  --color-foreground: var(--nef-fg);
+  --color-muted: var(--nef-fg-muted);
+  --color-border: var(--nef-border);
+  --color-border-strong: var(--nef-border-strong);
+  --color-surface: var(--nef-surface);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  background: var(--nef-bg);
+  color: var(--nef-fg);
+  font-family: var(--font-geist-sans), var(--nef-font-sans);
 }

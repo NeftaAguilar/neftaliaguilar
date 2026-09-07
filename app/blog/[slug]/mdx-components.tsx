@@ -7,7 +7,7 @@ import Image from "next/image";
  */
 function VideoEmbed({ url, title }: { url: string; title: string }) {
   return (
-    <div className="my-8 aspect-video overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800">
+    <div className="my-8 aspect-video overflow-hidden rounded-2xl border border-border">
       <iframe
         src={url}
         title={title}
@@ -22,38 +22,35 @@ function VideoEmbed({ url, title }: { url: string; title: string }) {
 export const mdxComponents = {
   h2: (props: ComponentPropsWithoutRef<"h2">) => (
     <h2
-      className="mt-12 text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50"
+      className="mt-12 text-xl font-semibold tracking-tight text-foreground"
       {...props}
     />
   ),
   h3: (props: ComponentPropsWithoutRef<"h3">) => (
     <h3
-      className="mt-8 text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50"
+      className="mt-8 text-lg font-semibold tracking-tight text-foreground"
       {...props}
     />
   ),
   p: (props: ComponentPropsWithoutRef<"p">) => (
-    <p
-      className="mt-4 text-base leading-7 text-zinc-600 dark:text-zinc-400"
-      {...props}
-    />
+    <p className="mt-4 text-base leading-7 text-muted" {...props} />
   ),
   ul: (props: ComponentPropsWithoutRef<"ul">) => (
     <ul
-      className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-zinc-600 dark:text-zinc-400"
+      className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-muted"
       {...props}
     />
   ),
   ol: (props: ComponentPropsWithoutRef<"ol">) => (
     <ol
-      className="mt-4 list-decimal space-y-2 pl-5 text-base leading-7 text-zinc-600 dark:text-zinc-400"
+      className="mt-4 list-decimal space-y-2 pl-5 text-base leading-7 text-muted"
       {...props}
     />
   ),
   li: (props: ComponentPropsWithoutRef<"li">) => <li {...props} />,
   a: (props: ComponentPropsWithoutRef<"a">) => (
     <a
-      className="font-medium text-zinc-950 underline underline-offset-2 dark:text-zinc-50"
+      className="font-medium text-foreground underline underline-offset-2"
       target={props.href?.startsWith("http") ? "_blank" : undefined}
       rel={props.href?.startsWith("http") ? "noopener noreferrer" : undefined}
       {...props}
@@ -61,7 +58,7 @@ export const mdxComponents = {
   ),
   code: (props: ComponentPropsWithoutRef<"code">) => (
     <code
-      className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-sm dark:bg-zinc-900"
+      className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm"
       {...props}
     />
   ),
@@ -71,22 +68,19 @@ export const mdxComponents = {
     </div>
   ),
   thead: (props: ComponentPropsWithoutRef<"thead">) => (
-    <thead
-      className="border-b border-zinc-200 text-zinc-500 dark:border-zinc-800 dark:text-zinc-400"
-      {...props}
-    />
+    <thead className="border-b border-border text-muted" {...props} />
   ),
   th: (props: ComponentPropsWithoutRef<"th">) => (
     <th className="py-2 pr-4 font-medium" {...props} />
   ),
   tr: (props: ComponentPropsWithoutRef<"tr">) => (
-    <tr className="border-b border-zinc-100 dark:border-zinc-900" {...props} />
+    <tr className="border-b border-border" {...props} />
   ),
   td: (props: ComponentPropsWithoutRef<"td">) => (
-    <td className="py-2 pr-4 text-zinc-600 dark:text-zinc-400" {...props} />
+    <td className="py-2 pr-4 text-muted" {...props} />
   ),
   img: (props: ComponentPropsWithoutRef<"img">) => (
-    <span className="my-8 block overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800">
+    <span className="my-8 block overflow-hidden rounded-2xl border border-border">
       {/* eslint-disable-next-line @next/next/no-img-element -- MDX passes plain img props; dimensions aren't known statically */}
       <img className="w-full" alt="" {...props} />
     </span>
