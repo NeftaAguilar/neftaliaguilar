@@ -2,7 +2,9 @@ import Link from "next/link";
 import { Button } from "./ui";
 import { SectionHeading } from "@/app/components/section-heading";
 import { PostCard } from "@/app/components/post-card";
+import { WorkCard } from "@/app/components/work-card";
 import { getLatestPosts } from "@/lib/posts";
+import { getAllCaseStudies } from "@/lib/work";
 
 const links = {
   github: "https://github.com/NeftaAguilar",
@@ -145,6 +147,7 @@ const skillGroups = [
 
 export default function Home() {
   const latestPosts = getLatestPosts(3);
+  const caseStudies = getAllCaseStudies();
 
   return (
     <div className="flex flex-1 flex-col bg-background text-foreground">
@@ -167,9 +170,12 @@ export default function Home() {
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button asChild variant="solid" size="lg">
-            <a href={links.email}>Email me</a>
+            <Link href="/work">See my work</Link>
           </Button>
           <Button asChild variant="outline" size="lg">
+            <a href={links.email}>Email me</a>
+          </Button>
+          <Button asChild variant="ghost" size="lg">
             <a href={links.github} target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
@@ -183,6 +189,26 @@ export default function Home() {
       </header>
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8">
+        {/* Selected work */}
+        {caseStudies.length > 0 && (
+          <section
+            aria-labelledby="work-heading"
+            className="border-t border-border py-16"
+          >
+            <SectionHeading eyebrow="Selected work" title="Case studies" />
+            <div className="space-y-4">
+              {caseStudies.map((study) => (
+                <WorkCard key={study.slug} study={study} />
+              ))}
+            </div>
+            <div className="mt-6">
+              <Button asChild variant="outline">
+                <Link href="/work">View all work</Link>
+              </Button>
+            </div>
+          </section>
+        )}
+
         {/* Latest posts */}
         {latestPosts.length > 0 && (
           <section
@@ -314,6 +340,9 @@ export default function Home() {
             © {new Date().getFullYear()} Neftali Aguilar.
           </p>
           <div className="flex gap-6 text-sm font-medium text-muted">
+            <Link href="/work" className="hover:text-foreground">
+              Work
+            </Link>
             <Link href="/blog" className="hover:text-foreground">
               Blog
             </Link>
