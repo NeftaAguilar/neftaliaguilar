@@ -154,16 +154,16 @@ export default function Home() {
   const latestPosts = getLatestPosts(3);
 
   return (
-    <div className="flex flex-1 flex-col bg-white text-zinc-900 dark:bg-black dark:text-zinc-100">
+    <div className="flex flex-1 flex-col bg-background text-foreground">
       {/* Hero */}
       <header className="mx-auto w-full max-w-3xl px-6 pb-16 pt-24 sm:px-8">
-        <p className="text-sm font-medium uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
+        <p className="text-sm font-medium uppercase tracking-widest text-muted">
           Neftali Aguilar
         </p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
           Senior Software Engineer, focused on the frontend.
         </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
           I build scalable React and TypeScript products and the design systems
           that hold them together. Currently exploring AI-augmented engineering
           — the Vercel AI SDK, retrieval-augmented generation, and agentic
@@ -190,13 +190,13 @@ export default function Home() {
         {/* Currently exploring */}
         <section
           aria-labelledby="exploring-heading"
-          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+          className="border-t border-border py-16"
         >
           <SectionHeading
             eyebrow="Currently studying"
             title="AI engineering, deliberately"
           />
-          <p className="max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
+          <p className="max-w-2xl text-base leading-7 text-muted">
             Beyond day-to-day frontend architecture, I&apos;m deep in the tools
             and patterns behind AI-native products.
           </p>
@@ -204,7 +204,7 @@ export default function Home() {
             {currentlyExploring.map((item) => (
               <li
                 key={item}
-                className="rounded-full border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 dark:border-zinc-800 dark:text-zinc-300"
+                className="rounded-full border border-border px-4 py-2 text-sm font-medium text-muted"
               >
                 {item}
               </li>
@@ -215,7 +215,7 @@ export default function Home() {
         {/* AI-Augmented Development Workflow */}
         <section
           aria-labelledby="workflow-heading"
-          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+          className="border-t border-border py-16"
         >
           <SectionHeading
             eyebrow="How I build"
@@ -225,15 +225,15 @@ export default function Home() {
             {workflowSteps.map((step, index) => (
               <li
                 key={step.title}
-                className="rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800"
+                className="rounded-2xl border border-border p-5"
               >
-                <span className="text-sm font-medium text-zinc-400 dark:text-zinc-500">
+                <span className="text-sm font-medium text-muted">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-2 font-semibold text-zinc-950 dark:text-zinc-50">
+                <h3 className="mt-2 font-semibold text-foreground">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                <p className="mt-2 text-sm leading-6 text-muted">
                   {step.description}
                 </p>
               </li>
@@ -245,7 +245,7 @@ export default function Home() {
         {latestPosts.length > 0 && (
           <section
             aria-labelledby="blog-heading"
-            className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+            className="border-t border-border py-16"
           >
             <SectionHeading eyebrow="Writing" title="Latest posts" />
             <div className="space-y-4">
@@ -264,24 +264,20 @@ export default function Home() {
         {/* Experience */}
         <section
           aria-labelledby="experience-heading"
-          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+          className="border-t border-border py-16"
         >
           <SectionHeading eyebrow="Experience" title="Where I've worked" />
           <div className="space-y-10">
             {experience.map((job) => (
               <article key={job.company}>
                 <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
-                  <h3 className="font-semibold text-zinc-950 dark:text-zinc-50">
+                  <h3 className="font-semibold text-foreground">
                     {job.role} · {job.company}
                   </h3>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                    {job.period}
-                  </p>
+                  <p className="text-sm text-muted">{job.period}</p>
                 </div>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                  {job.location}
-                </p>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                <p className="text-sm text-muted">{job.location}</p>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted">
                   {job.highlights.map((highlight) => (
                     <li key={highlight}>{highlight}</li>
                   ))}
@@ -294,20 +290,20 @@ export default function Home() {
         {/* Skills */}
         <section
           aria-labelledby="skills-heading"
-          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+          className="border-t border-border py-16"
         >
           <SectionHeading eyebrow="Toolbox" title="Skills" />
           <div className="grid gap-8 sm:grid-cols-2">
             {skillGroups.map((group) => (
               <div key={group.label}>
-                <h3 className="text-sm font-semibold text-zinc-950 dark:text-zinc-50">
+                <h3 className="text-sm font-semibold text-foreground">
                   {group.label}
                 </h3>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {group.skills.map((skill) => (
                     <li
                       key={skill}
-                      className="rounded-md bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
+                      className="rounded-md bg-surface px-2.5 py-1 text-xs font-medium text-muted"
                     >
                       {skill}
                     </li>
@@ -321,18 +317,18 @@ export default function Home() {
         {/* Education */}
         <section
           aria-labelledby="education-heading"
-          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+          className="border-t border-border py-16"
         >
           <SectionHeading eyebrow="Background" title="Education" />
-          <ul className="space-y-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+          <ul className="space-y-2 text-sm leading-6 text-muted">
             <li>
-              <span className="font-medium text-zinc-950 dark:text-zinc-50">
+              <span className="font-medium text-foreground">
                 Universidad Tecnológica de Bahía de Banderas
               </span>{" "}
               — B.S. Software Engineering (2014–2017)
             </li>
             <li>
-              <span className="font-medium text-zinc-950 dark:text-zinc-50">
+              <span className="font-medium text-foreground">
                 Dominican University, Chicago
               </span>{" "}
               — English Scholarship (2014)
@@ -341,29 +337,23 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-zinc-200 dark:border-zinc-800">
+      <footer className="border-t border-border">
         <div className="mx-auto flex w-full max-w-3xl flex-col items-start justify-between gap-4 px-6 py-10 sm:flex-row sm:items-center sm:px-8">
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-sm text-muted">
             © {new Date().getFullYear()} Neftali Aguilar.
           </p>
-          <div className="flex gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
-            <Link
-              href="/blog"
-              className="hover:text-zinc-950 dark:hover:text-zinc-50"
-            >
+          <div className="flex gap-6 text-sm font-medium text-muted">
+            <Link href="/blog" className="hover:text-foreground">
               Blog
             </Link>
-            <a
-              href={links.email}
-              className="hover:text-zinc-950 dark:hover:text-zinc-50"
-            >
+            <a href={links.email} className="hover:text-foreground">
               Email
             </a>
             <a
               href={links.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-zinc-950 dark:hover:text-zinc-50"
+              className="hover:text-foreground"
             >
               GitHub
             </a>
@@ -371,7 +361,7 @@ export default function Home() {
               href={links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-zinc-950 dark:hover:text-zinc-50"
+              className="hover:text-foreground"
             >
               LinkedIn
             </a>
