@@ -104,7 +104,15 @@ const skillGroups = [
   },
   {
     label: "Backend",
-    skills: ["Node.js", "NestJS", "tRPC", "GraphQL", "REST APIs", "Prisma", "PostgreSQL"],
+    skills: [
+      "Node.js",
+      "NestJS",
+      "tRPC",
+      "GraphQL",
+      "REST APIs",
+      "Prisma",
+      "PostgreSQL",
+    ],
   },
   {
     label: "Architecture & Engineering",
@@ -118,7 +126,13 @@ const skillGroups = [
   },
   {
     label: "DevOps & Observability",
-    skills: ["Docker", "GitHub Actions", "CI/CD", "Grafana", "Production Debugging"],
+    skills: [
+      "Docker",
+      "GitHub Actions",
+      "CI/CD",
+      "Grafana",
+      "Production Debugging",
+    ],
   },
   {
     label: "Testing",
@@ -126,7 +140,13 @@ const skillGroups = [
   },
   {
     label: "AI & LLM Tooling",
-    skills: ["Vercel AI SDK", "RAG", "Claude Code", "Cursor", "Radix Primitives"],
+    skills: [
+      "Vercel AI SDK",
+      "RAG",
+      "Claude Code",
+      "Cursor",
+      "Radix Primitives",
+    ],
   },
 ];
 
@@ -134,7 +154,7 @@ export default function Home() {
   const latestPosts = getLatestPosts(3);
 
   return (
-    <div className="flex flex-1 flex-col bg-white font-sans text-zinc-900 dark:bg-black dark:text-zinc-100">
+    <div className="flex flex-1 flex-col bg-white text-zinc-900 dark:bg-black dark:text-zinc-100">
       {/* Hero */}
       <header className="mx-auto w-full max-w-3xl px-6 pb-16 pt-24 sm:px-8">
         <p className="text-sm font-medium uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
@@ -144,9 +164,9 @@ export default function Home() {
           Senior Software Engineer, focused on the frontend.
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-          I build scalable React and TypeScript products and the design systems that
-          hold them together. Currently exploring AI-augmented engineering —
-          the Vercel AI SDK, retrieval-augmented generation, and agentic
+          I build scalable React and TypeScript products and the design systems
+          that hold them together. Currently exploring AI-augmented engineering
+          — the Vercel AI SDK, retrieval-augmented generation, and agentic
           developer workflows.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
@@ -168,11 +188,17 @@ export default function Home() {
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8">
         {/* Currently exploring */}
-        <section aria-labelledby="exploring-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
-          <SectionHeading eyebrow="Currently studying" title="AI engineering, deliberately" />
+        <section
+          aria-labelledby="exploring-heading"
+          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+        >
+          <SectionHeading
+            eyebrow="Currently studying"
+            title="AI engineering, deliberately"
+          />
           <p className="max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
-            Beyond day-to-day frontend architecture, I&apos;m deep in the tools and
-            patterns behind AI-native products.
+            Beyond day-to-day frontend architecture, I&apos;m deep in the tools
+            and patterns behind AI-native products.
           </p>
           <ul className="mt-6 flex flex-wrap gap-2">
             {currentlyExploring.map((item) => (
@@ -187,8 +213,14 @@ export default function Home() {
         </section>
 
         {/* AI-Augmented Development Workflow */}
-        <section aria-labelledby="workflow-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
-          <SectionHeading eyebrow="How I build" title="AI-augmented development workflow" />
+        <section
+          aria-labelledby="workflow-heading"
+          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+        >
+          <SectionHeading
+            eyebrow="How I build"
+            title="AI-augmented development workflow"
+          />
           <ol className="grid gap-6 sm:grid-cols-2">
             {workflowSteps.map((step, index) => (
               <li
@@ -211,7 +243,10 @@ export default function Home() {
 
         {/* Latest posts */}
         {latestPosts.length > 0 && (
-          <section aria-labelledby="blog-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
+          <section
+            aria-labelledby="blog-heading"
+            className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+          >
             <SectionHeading eyebrow="Writing" title="Latest posts" />
             <div className="space-y-4">
               {latestPosts.map((post) => (
@@ -227,7 +262,10 @@ export default function Home() {
         )}
 
         {/* Experience */}
-        <section aria-labelledby="experience-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
+        <section
+          aria-labelledby="experience-heading"
+          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+        >
           <SectionHeading eyebrow="Experience" title="Where I've worked" />
           <div className="space-y-10">
             {experience.map((job) => (
@@ -236,9 +274,13 @@ export default function Home() {
                   <h3 className="font-semibold text-zinc-950 dark:text-zinc-50">
                     {job.role} · {job.company}
                   </h3>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">{job.period}</p>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                    {job.period}
+                  </p>
                 </div>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">{job.location}</p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                  {job.location}
+                </p>
                 <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
                   {job.highlights.map((highlight) => (
                     <li key={highlight}>{highlight}</li>
@@ -250,7 +292,10 @@ export default function Home() {
         </section>
 
         {/* Skills */}
-        <section aria-labelledby="skills-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
+        <section
+          aria-labelledby="skills-heading"
+          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+        >
           <SectionHeading eyebrow="Toolbox" title="Skills" />
           <div className="grid gap-8 sm:grid-cols-2">
             {skillGroups.map((group) => (
@@ -274,7 +319,10 @@ export default function Home() {
         </section>
 
         {/* Education */}
-        <section aria-labelledby="education-heading" className="border-t border-zinc-200 py-16 dark:border-zinc-800">
+        <section
+          aria-labelledby="education-heading"
+          className="border-t border-zinc-200 py-16 dark:border-zinc-800"
+        >
           <SectionHeading eyebrow="Background" title="Education" />
           <ul className="space-y-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
             <li>
@@ -299,10 +347,16 @@ export default function Home() {
             © {new Date().getFullYear()} Neftali Aguilar.
           </p>
           <div className="flex gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
-            <Link href="/blog" className="hover:text-zinc-950 dark:hover:text-zinc-50">
+            <Link
+              href="/blog"
+              className="hover:text-zinc-950 dark:hover:text-zinc-50"
+            >
               Blog
             </Link>
-            <a href={links.email} className="hover:text-zinc-950 dark:hover:text-zinc-50">
+            <a
+              href={links.email}
+              className="hover:text-zinc-950 dark:hover:text-zinc-50"
+            >
               Email
             </a>
             <a
