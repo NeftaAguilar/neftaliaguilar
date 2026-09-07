@@ -1,4 +1,4 @@
-# Plan — Portfolio redesign for Buffer (Senior Design Engineer)
+# Plan — Portfolio redesign for a Senior Design Engineer application
 
 Goal: turn a text résumé site into evidence of front-end craft — interaction
 quality, visual detail, and ownership of a component system.
@@ -99,7 +99,7 @@ Rule: 1 PR = 1 unchecked task below. Branch from main every time.
 
 - [ ] **3.1 Live component playground on the case study page** (M)
   - A client component (authored in **CSS Modules**, not Tailwind — deliberate,
-    and matches Buffer's stack) embedded into `content/work/nef-ui.mdx`.
+    and matches the target stack) embedded into `content/work/nef-ui.mdx`.
   - Tabbed demo using his own `Tabs`, exercising `Button` (all 5 variants,
     loading state), `Switch`, `Select`, `Dialog`, `Toast`, `Tooltip`,
     `Skeleton`.
@@ -149,7 +149,7 @@ Rule: 1 PR = 1 unchecked task below. Branch from main every time.
     surface a recruiter sees, and today there isn't one.
   - Publish the numbers in a short "How this site is built" section: Lighthouse
     scores, CWV, JS shipped. Optional and on-message: render them with
-    **Recharts**, which the JD names.
+    **Recharts**, which the target stack names.
   - Needs from user: nothing.
 
 - [ ] **5.2 (Optional) Blog post: "Shipping a component library as portfolio
@@ -157,7 +157,7 @@ Rule: 1 PR = 1 unchecked task below. Branch from main every time.
   - `content/posts/*.mdx`, reusing the existing pipeline. Covers the Radix →
     Base UI bet, CSS Modules over Tailwind for a published package, and
     animating from `data-state` without a runtime dependency.
-  - Doubles as the written-communication sample Buffer asks for.
+  - Doubles as a written-communication sample.
   - Needs from user: approval of the angle before drafting.
 
 ## Risks
