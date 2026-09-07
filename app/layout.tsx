@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://neftaliaguilar.com";
-const title = "Neftali Aguilar — Senior Software Engineer";
+const title = "Neftali Aguilar — Design Systems & Frontend Engineering";
 const description =
-  "Senior Software Engineer specializing in frontend architecture, React, TypeScript, and design systems. Currently exploring AI-augmented engineering with the Vercel AI SDK and RAG.";
+  "Senior software engineer focused on design systems, interaction detail, and accessibility — React and TypeScript products built on component systems teams can trust.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
   description,
   keywords: [
     "Neftali Aguilar",
-    "Senior Software Engineer",
-    "Frontend Architecture",
+    "Design Systems",
+    "Frontend Engineering",
+    "Interaction Design",
+    "Accessibility",
     "React",
     "Next.js",
     "TypeScript",
-    "Design Systems",
-    "Vercel AI SDK",
-    "RAG",
+    "Component Systems",
   ],
   authors: [{ name: "Neftali Aguilar", url: siteUrl }],
   creator: "Neftali Aguilar",
