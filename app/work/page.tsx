@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/app/ui";
 import { SectionHeading } from "@/app/components/section-heading";
 import { WorkCard } from "@/app/components/work-card";
+import { Reveal } from "@/app/components/reveal";
 import { getAllCaseStudies } from "@/lib/work";
 
 export const metadata: Metadata = {
@@ -20,14 +21,14 @@ export default function WorkIndex() {
         <Button asChild variant="ghost" size="sm">
           <Link href="/">← Back to home</Link>
         </Button>
-        <div className="mt-8">
+        <Reveal className="mt-8">
           <SectionHeading eyebrow="Selected work" title="Work" />
-        </div>
-        <div className="space-y-4">
-          {caseStudies.map((study) => (
-            <WorkCard key={study.slug} study={study} />
-          ))}
-        </div>
+          <div className="space-y-4">
+            {caseStudies.map((study) => (
+              <WorkCard key={study.slug} study={study} />
+            ))}
+          </div>
+        </Reveal>
       </main>
     </div>
   );

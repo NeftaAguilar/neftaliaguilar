@@ -129,10 +129,7 @@ export function MdxPlayground() {
                   >
                     {buttonLoading ? "Loading…" : "Trigger loading state"}
                   </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => setToastOpen(true)}
-                  >
+                  <Button variant="outline" onClick={() => setToastOpen(true)}>
                     Show toast
                   </Button>
                 </div>
@@ -186,16 +183,12 @@ export function MdxPlayground() {
                       <Button variant="outline">Open menu</Button>
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content align="start">
-                      <DropdownMenu.Item shortcut="⌘E">
-                        Edit
-                      </DropdownMenu.Item>
+                      <DropdownMenu.Item shortcut="⌘E">Edit</DropdownMenu.Item>
                       <DropdownMenu.Item shortcut="⌘D">
                         Duplicate
                       </DropdownMenu.Item>
                       <DropdownMenu.Separator />
-                      <DropdownMenu.Item destructive>
-                        Delete
-                      </DropdownMenu.Item>
+                      <DropdownMenu.Item destructive>Delete</DropdownMenu.Item>
                     </DropdownMenu.Content>
                   </DropdownMenu>
                 </div>

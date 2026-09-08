@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ViewTransition } from "react";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
@@ -57,9 +58,11 @@ export default async function BlogPost({
         <article>
           <header className="mb-10 mt-8">
             <p className="text-sm text-muted">{formatDate(post.date)}</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              {post.title}
-            </h1>
+            <ViewTransition name={`post-title-${post.slug}`}>
+              <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                {post.title}
+              </h1>
+            </ViewTransition>
             {post.tags.length > 0 && (
               <ul className="mt-4 flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
