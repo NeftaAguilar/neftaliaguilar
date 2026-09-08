@@ -10,6 +10,7 @@ stack:
   - "CSS Modules"
   - "Storybook"
   - "Chromatic"
+  - "Vitest"
   - "vitest-axe"
 links:
   - label: "npm"
@@ -24,12 +25,96 @@ metrics:
   - label: "Components"
     value: "14"
   - label: "Visual regression"
-    value: "Every PR, via Chromatic"
+    value: "Every push and PR, via Chromatic"
   - label: "Accessibility"
     value: "vitest-axe on every component"
 ---
 
-Full write-up coming soon — the short version: a published, versioned
-component library built the way I'd want a team's design system built,
-covering token architecture, accessibility, and visual-regression testing
-end to end.
+## Context
+
+Most of what I know about design systems, I learned maintaining one inside
+someone else's product — the tokens were already decided, the primitive
+library was already chosen, and the migrations I care about most (swapping
+what a component is built on, without breaking who consumes it) had already
+happened before I joined. nef-ui exists to close that gap: a real, published
+package where I own every layer, from the raw color scale to the npm
+release.
+
+It's fourteen components — `Button`, `TextField`, `Textarea`, `Select`,
+`Switch`, `Dialog`, `DropdownMenu`, `Tooltip`, `Tabs`, `Toast`, `Card`,
+`HStack`, `VStack`, `Skeleton` — built on
+[Radix Primitives](https://www.radix-ui.com/primitives), styled with CSS
+Modules, and themed entirely through CSS custom properties.
+
+## Constraints I set myself
+
+A design system's hardest decisions aren't the ones you make — they're the
+ones you write down so a future reader doesn't assume you forgot them. Three
+are recorded as ADRs in the repo:
+
+**Radix now, Base UI later — on purpose.** Base UI is quickly becoming the
+default primitive layer, which makes starting on Radix the non-obvious
+choice. I did it anyway, because the thing I actually want practice at is
+migrating a whole primitive layer under a design system without breaking
+consumers — and I don't build an abstraction layer to make that migration
+cheaper later. A migration I'm merely prepared for teaches me nothing; the
+Component boundary that already exists is what contains the blast radius.
+
+**CSS Modules, not Tailwind, for the published package.** Tailwind is my
+default everywhere else, which is what makes this the surprising call. But
+utility classes shipped in `dist` only work if the consumer's own Tailwind
+build scans this package — and Next.js and Nx setups each break that
+differently. CSS Modules compile to one plain stylesheet that works with zero
+consumer configuration; theming happens by overriding semantic tokens, no
+build step required.
+
+**No runtime animation dependency in the library.** Radix exposes
+`data-state` attributes that CSS keyframes can drive directly, so enter/exit
+animation needs no JavaScript at all. I still reach for Motion — but in the
+portfolio and demo apps that consume this library, where layout animation and
+shared-element transitions actually need it, not inside a package that would
+force that dependency on everyone who installs it.
+
+## The token architecture
+
+Every value in the system sits in one of four tiers, and a component is only
+ever allowed to reference one of them:
+
+- **Primitive Token** — a raw, meaningless value in a scale (`--nef-gray-900`,
+  `--nef-space-md`). Never referenced by a component directly.
+- **Semantic Token** — a named role that resolves to a primitive
+  (`--nef-bg`, `--nef-accent`). The only tier a component may reference, and
+  the only tier a consumer overrides to theme.
+- **Theme** — a complete set of semantic token values, selected by a
+  `data-theme` attribute.
+- **Recipe** — the CSS Module owned by a single component, holding its
+  variants and states.
+
+Keeping those layers separate is what makes a one-line theme override
+possible: setting `--nef-accent` on `:root` re-themes every component in the
+library, light or dark, with zero JavaScript. This portfolio site is itself a
+consumer — the accent color and every gray you're looking at right now
+resolves through these same tokens.
+
+## Evidence, not claims
+
+- **Chromatic on every push and PR.** A GitHub Actions workflow diffs
+  Storybook snapshots against the last accepted baseline (`onlyChanged: true`,
+  so it only fires on component changes — doc or config commits don't burn a
+  build).
+- **Accessibility tests alongside behavior tests.** Every component's test
+  file asserts on more than rendering — labels, ARIA attributes, keyboard
+  interaction — and runs `vitest-axe` against its error and disabled states
+  to catch violations before Chromatic ever sees them.
+- **A public, versioned release.** The package ships to npm with a real
+  changelog via Changesets, so consumers (this site included) upgrade
+  deliberately instead of pulling from a private monorepo path.
+
+## Outcome
+
+This site imports `@neftaliaguilar/ui` and themes through the same semantic
+tokens described above — the `Button` component in the hero is the same one
+documented in Storybook, not a one-off recreation. The next phase of this
+case study is a live playground, embedded right on this page, that lets you
+exercise the components and their token-driven theming directly rather than
+taking my word for it.
