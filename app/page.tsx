@@ -195,7 +195,11 @@ export default function Home() {
             aria-labelledby="work-heading"
             className="border-t border-border py-16"
           >
-            <SectionHeading eyebrow="Selected work" title="Case studies" />
+            <SectionHeading
+              id="work-heading"
+              eyebrow="Selected work"
+              title="Case studies"
+            />
             <div className="space-y-4">
               {caseStudies.map((study) => (
                 <WorkCard key={study.slug} study={study} />
@@ -215,7 +219,11 @@ export default function Home() {
             aria-labelledby="blog-heading"
             className="border-t border-border py-16"
           >
-            <SectionHeading eyebrow="Writing" title="Latest posts" />
+            <SectionHeading
+              id="blog-heading"
+              eyebrow="Writing"
+              title="Latest posts"
+            />
             <div className="space-y-4">
               {latestPosts.map((post) => (
                 <PostCard key={post.slug} post={post} />
@@ -234,7 +242,11 @@ export default function Home() {
           aria-labelledby="experience-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading eyebrow="Experience" title="Where I've worked" />
+          <SectionHeading
+            id="experience-heading"
+            eyebrow="Experience"
+            title="Where I've worked"
+          />
           <div className="space-y-10">
             {experience.map((job) => (
               <article key={job.company}>
@@ -261,6 +273,7 @@ export default function Home() {
           className="border-t border-border py-16"
         >
           <SectionHeading
+            id="workflow-heading"
             eyebrow="How I build"
             title="AI-augmented development workflow"
           />
@@ -289,7 +302,11 @@ export default function Home() {
           aria-labelledby="skills-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading eyebrow="Toolbox" title="Skills" />
+          <SectionHeading
+            id="skills-heading"
+            eyebrow="Toolbox"
+            title="Skills"
+          />
           <div className="grid gap-8 sm:grid-cols-2">
             {skillGroups.map((group) => (
               <div key={group.label}>
@@ -316,7 +333,11 @@ export default function Home() {
           aria-labelledby="education-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading eyebrow="Background" title="Education" />
+          <SectionHeading
+            id="education-heading"
+            eyebrow="Background"
+            title="Education"
+          />
           <ul className="space-y-2 text-sm leading-6 text-muted">
             <li>
               <span className="font-medium text-foreground">
