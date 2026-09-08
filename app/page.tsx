@@ -189,7 +189,10 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8">
+      <main
+        id="main-content"
+        className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8"
+      >
         {/* Selected work */}
         {caseStudies.length > 0 && (
           <section
@@ -362,6 +365,69 @@ export default function Home() {
                   Dominican University, Chicago
                 </span>{" "}
                 — English Scholarship (2014)
+              </li>
+            </ul>
+          </Reveal>
+        </section>
+
+        {/* Craft receipts */}
+        <section
+          aria-labelledby="craft-heading"
+          className="border-t border-border py-16"
+        >
+          <Reveal>
+            <SectionHeading
+              id="craft-heading"
+              eyebrow="Craft"
+              title="How this site is built"
+            />
+            <p className="max-w-2xl text-base leading-7 text-muted">
+              Lighthouse scores measured against a production build, not the dev
+              server — the number that actually ships.
+            </p>
+            <dl className="mt-6 grid gap-4 border-y border-border py-6 sm:grid-cols-2">
+              <div>
+                <dt className="text-xs font-medium uppercase tracking-widest text-muted">
+                  Accessibility
+                </dt>
+                <dd className="mt-1 text-2xl font-semibold text-foreground">
+                  100
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-medium uppercase tracking-widest text-muted">
+                  SEO
+                </dt>
+                <dd className="mt-1 text-2xl font-semibold text-foreground">
+                  100
+                </dd>
+              </div>
+            </dl>
+            <ul className="mt-6 list-disc space-y-2 pl-5 text-sm leading-6 text-muted">
+              <li>
+                A skip-to-content link, correct heading order on every route
+                (each page has exactly one h1), and focus-visible states — using
+                the design system&apos;s own{" "}
+                <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
+                  --nef-focus-ring
+                </code>{" "}
+                token — on every interactive element that didn&apos;t already
+                have one.
+              </li>
+              <li>
+                The design system&apos;s default muted-text color measured 3.1:1
+                against its own background — under WCAG AA&apos;s 4.5:1 for body
+                text. Darkened it here (site-only override, the published token
+                is unchanged) since this site leans on it for more than
+                captions.
+              </li>
+              <li>
+                Every animation on this page — the scroll reveals, the view
+                transitions, the playground&apos;s own motion — honors{" "}
+                <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
+                  prefers-reduced-motion
+                </code>
+                . Turn it on in your OS settings and reload.
               </li>
             </ul>
           </Reveal>

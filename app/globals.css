@@ -22,3 +22,15 @@ body {
   color: var(--nef-fg);
   font-family: var(--font-geist-sans), var(--nef-font-sans);
 }
+
+/* nef-ui's --nef-fg-muted is 3.1:1 (light) / 3.4:1 (dark) against its own
+   background — under WCAG AA's 4.5:1 for normal text. This site leans on
+   that token for body-sized copy (not just captions), so darken it here.
+   Site-only override; the published package's token is unchanged. */
+:root,
+[data-theme="light"] {
+  --nef-fg-muted: #57575f;
+}
+[data-theme="dark"] {
+  --nef-fg-muted: #9295a0;
+}
