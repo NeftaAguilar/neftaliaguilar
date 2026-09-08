@@ -43,9 +43,9 @@ const experience = [
     location: "Guadalajara, MX (Hybrid)",
     highlights: [
       "Key contributor to Couchsurfing's next-generation web platform, replacing a legacy application with a modern React, TypeScript, and tRPC architecture alongside a Principal Engineer and distributed teams.",
-      "Shape frontend architecture within an Nx monorepo — scalable patterns, shared libraries, and reusable components.",
-      "Design and expand a reusable Design System with Storybook for consistent UX across product areas.",
-      "Lead performance initiatives across Lighthouse, Core Web Vitals, bundle size, and runtime behavior.",
+      "Shape frontend architecture within an Nx monorepo — scalable patterns, shared libraries, and reusable components consumed across product areas.",
+      "Own the team's Design System end to end: component API design, token architecture, and Storybook documentation, so product teams build consistent UI without re-deriving spacing or color decisions each time.",
+      "Lead performance initiatives across Lighthouse, Core Web Vitals, bundle size, and runtime behavior — treating performance as a design-system concern, not an afterthought.",
       "Investigate and resolve production issues using Grafana.",
     ],
   },

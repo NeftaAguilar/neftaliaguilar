@@ -5,7 +5,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { Button } from "@/app/ui";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
-import { mdxComponents } from "./mdx-components";
+import { mdxComponents } from "@/app/components/mdx-components";
 
 export function generateStaticParams() {
   return getAllPostSlugs().map((slug) => ({ slug }));
