@@ -2,7 +2,9 @@ import Link from "next/link";
 import { Button } from "./ui";
 import { SectionHeading } from "@/app/components/section-heading";
 import { PostCard } from "@/app/components/post-card";
+import { WorkCard } from "@/app/components/work-card";
 import { getLatestPosts } from "@/lib/posts";
+import { getAllCaseStudies } from "@/lib/work";
 
 const links = {
   github: "https://github.com/NeftaAguilar",
@@ -145,6 +147,7 @@ const skillGroups = [
 
 export default function Home() {
   const latestPosts = getLatestPosts(3);
+  const caseStudies = getAllCaseStudies();
 
   return (
     <div className="flex flex-1 flex-col bg-background text-foreground">
@@ -167,9 +170,12 @@ export default function Home() {
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button asChild variant="solid" size="lg">
-            <a href={links.email}>Email me</a>
+            <Link href="/work">See my work</Link>
           </Button>
           <Button asChild variant="outline" size="lg">
+            <a href={links.email}>Email me</a>
+          </Button>
+          <Button asChild variant="ghost" size="lg">
             <a href={links.github} target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
@@ -183,13 +189,41 @@ export default function Home() {
       </header>
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8">
+        {/* Selected work */}
+        {caseStudies.length > 0 && (
+          <section
+            aria-labelledby="work-heading"
+            className="border-t border-border py-16"
+          >
+            <SectionHeading
+              id="work-heading"
+              eyebrow="Selected work"
+              title="Case studies"
+            />
+            <div className="space-y-4">
+              {caseStudies.map((study) => (
+                <WorkCard key={study.slug} study={study} />
+              ))}
+            </div>
+            <div className="mt-6">
+              <Button asChild variant="outline">
+                <Link href="/work">View all work</Link>
+              </Button>
+            </div>
+          </section>
+        )}
+
         {/* Latest posts */}
         {latestPosts.length > 0 && (
           <section
             aria-labelledby="blog-heading"
             className="border-t border-border py-16"
           >
-            <SectionHeading eyebrow="Writing" title="Latest posts" />
+            <SectionHeading
+              id="blog-heading"
+              eyebrow="Writing"
+              title="Latest posts"
+            />
             <div className="space-y-4">
               {latestPosts.map((post) => (
                 <PostCard key={post.slug} post={post} />
@@ -208,7 +242,11 @@ export default function Home() {
           aria-labelledby="experience-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading eyebrow="Experience" title="Where I've worked" />
+          <SectionHeading
+            id="experience-heading"
+            eyebrow="Experience"
+            title="Where I've worked"
+          />
           <div className="space-y-10">
             {experience.map((job) => (
               <article key={job.company}>
@@ -235,6 +273,7 @@ export default function Home() {
           className="border-t border-border py-16"
         >
           <SectionHeading
+            id="workflow-heading"
             eyebrow="How I build"
             title="AI-augmented development workflow"
           />
@@ -263,7 +302,11 @@ export default function Home() {
           aria-labelledby="skills-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading eyebrow="Toolbox" title="Skills" />
+          <SectionHeading
+            id="skills-heading"
+            eyebrow="Toolbox"
+            title="Skills"
+          />
           <div className="grid gap-8 sm:grid-cols-2">
             {skillGroups.map((group) => (
               <div key={group.label}>
@@ -290,7 +333,11 @@ export default function Home() {
           aria-labelledby="education-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading eyebrow="Background" title="Education" />
+          <SectionHeading
+            id="education-heading"
+            eyebrow="Background"
+            title="Education"
+          />
           <ul className="space-y-2 text-sm leading-6 text-muted">
             <li>
               <span className="font-medium text-foreground">
@@ -314,6 +361,9 @@ export default function Home() {
             © {new Date().getFullYear()} Neftali Aguilar.
           </p>
           <div className="flex gap-6 text-sm font-medium text-muted">
+            <Link href="/work" className="hover:text-foreground">
+              Work
+            </Link>
             <Link href="/blog" className="hover:text-foreground">
               Blog
             </Link>
