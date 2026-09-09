@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import {
   Button,
@@ -20,6 +20,9 @@ function subscribeToTheme(onChange: () => void) {
   });
   return () => observer.disconnect();
 }
+
+const EMAIL = "hola@neftaliaguilar.com";
+const SOURCE_URL = "https://github.com/NeftaAguilar/neftaliaguilar";
 
 function getThemeSnapshot() {
   return document.documentElement.getAttribute("data-theme") === "dark";
@@ -42,12 +45,19 @@ export function HeroNefUiShowcase() {
     } catch {}
   };
 
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
+
+  useEffect(() => () => clearTimeout(copiedTimerRef.current), []);
+
   const copyEmail = () => {
     navigator.clipboard
-      ?.writeText("hola@neftaliaguilar.com")
+      ?.writeText(EMAIL)
       .then(() => {
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        clearTimeout(copiedTimerRef.current);
+        copiedTimerRef.current = setTimeout(() => setCopied(false), 2000);
       })
       .catch(() => {});
   };
@@ -125,10 +135,7 @@ export function HeroNefUiShowcase() {
                     <DropdownMenu.Item
                       shortcut="⌘G"
                       onSelect={() =>
-                        window.open(
-                          "https://github.com/NeftaAguilar/neftaliaguilar",
-                          "_blank",
-                        )
+                        window.open(SOURCE_URL, "_blank", "noopener")
                       }
                     >
                       View source on GitHub

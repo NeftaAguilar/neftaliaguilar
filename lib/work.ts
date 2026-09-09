@@ -1,8 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+import { cache } from "react";
 import matter from "gray-matter";
 
 const WORK_DIR = path.join(process.cwd(), "content/work");
+const MDX_EXTENSION = /\.mdx$/;
 
 export type CaseStudyLink = {
   label: string;
@@ -29,7 +31,9 @@ export type CaseStudy = CaseStudyMeta & {
   content: string;
 };
 
-function readCaseStudyFile(slug: string): CaseStudy {
+// See the note in `lib/posts.ts` — the home page and `/work` both list the
+// same case studies, and `cache()` keeps that to one read per request.
+const readCaseStudyFile = cache((slug: string): CaseStudy => {
   const filePath = path.join(WORK_DIR, `${slug}.mdx`);
   const raw = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(raw);
@@ -45,24 +49,27 @@ function readCaseStudyFile(slug: string): CaseStudy {
     metrics: data.metrics ?? [],
     content,
   };
-}
+});
 
-export function getAllCaseStudySlugs(): string[] {
-  return fs
-    .readdirSync(WORK_DIR)
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx$/, ""));
-}
+export const getAllCaseStudySlugs = cache((): string[] => {
+  const slugs: string[] = [];
 
-export function getAllCaseStudies(): CaseStudyMeta[] {
-  return getAllCaseStudySlugs()
-    .map((slug) => readCaseStudyFile(slug))
-    .map((study): CaseStudyMeta => {
-      const { slug, title, role, period, summary, stack, links, metrics } =
-        study;
-      return { slug, title, role, period, summary, stack, links, metrics };
-    });
-}
+  for (const file of fs.readdirSync(WORK_DIR)) {
+    if (file.endsWith(".mdx")) {
+      slugs.push(file.replace(MDX_EXTENSION, ""));
+    }
+  }
+
+  return slugs;
+});
+
+export const getAllCaseStudies = cache((): CaseStudyMeta[] =>
+  getAllCaseStudySlugs().map((slug): CaseStudyMeta => {
+    const { title, role, period, summary, stack, links, metrics } =
+      readCaseStudyFile(slug);
+    return { slug, title, role, period, summary, stack, links, metrics };
+  }),
+);
 
 export function getCaseStudyBySlug(slug: string): CaseStudy {
   return readCaseStudyFile(slug);

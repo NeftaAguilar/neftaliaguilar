@@ -13,12 +13,7 @@ import { ToolboxGrid } from "@/app/components/toolbox-grid";
 import { ExperienceTimeline } from "@/app/components/experience-timeline";
 import { getLatestPosts } from "@/lib/posts";
 import { getAllCaseStudies } from "@/lib/work";
-
-const links = {
-  github: "https://github.com/NeftaAguilar",
-  linkedin: "https://www.linkedin.com/in/neftaliaguilaralvarez/",
-  email: "mailto:hola@neftaliaguilar.com",
-};
+import { links } from "@/lib/links";
 
 const workflowSteps = [
   {

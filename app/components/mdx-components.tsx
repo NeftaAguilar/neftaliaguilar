@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 import Image from "next/image";
-import { MdxPlayground } from "./mdx-playground";
+import { MdxPlayground } from "./mdx-playground-lazy";
 
 function cx(...classes: Array<string | undefined>) {
   return classes.filter(Boolean).join(" ");

@@ -119,21 +119,36 @@ function ToastEngineDemo() {
   const [toasts, setToasts] = useState<
     { id: number; title: string; meta: string }[]
   >([]);
-  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  // Keyed by toast id rather than appended to an array, so a timer is dropped
+  // as soon as it fires or its toast is dismissed instead of accumulating for
+  // the lifetime of the page.
+  const timersRef = useRef(new Map<number, ReturnType<typeof setTimeout>>());
 
   useEffect(() => {
     const timers = timersRef.current;
-    return () => timers.forEach(clearTimeout);
+    return () => {
+      timers.forEach(clearTimeout);
+      timers.clear();
+    };
   }, []);
 
-  const dismiss = (id: number) =>
+  const dismiss = (id: number) => {
+    const timer = timersRef.current.get(id);
+    if (timer !== undefined) {
+      clearTimeout(timer);
+      timersRef.current.delete(id);
+    }
     setToasts((t) => t.filter((toast) => toast.id !== id));
+  };
 
   const push = () => {
     const [title, meta] = TOAST_COPY[toastId % TOAST_COPY.length];
     const id = ++toastId;
     setToasts((t) => [{ id, title, meta }, ...t].slice(0, 3));
-    timersRef.current.push(setTimeout(() => dismiss(id), 4200));
+    timersRef.current.set(
+      id,
+      setTimeout(() => dismiss(id), 4200),
+    );
   };
 
   return (
@@ -284,55 +299,84 @@ function CommandPaletteDemo() {
   );
 }
 
+const LCP_TARGET = 0.82;
+const INP_TARGET = 34;
+const CLS_TARGET = 0;
+
 function VitalsDemo() {
   const shouldReduceMotion = useReducedMotion();
-  const animateIt = !shouldReduceMotion;
   const containerRef = useRef<HTMLDivElement>(null);
+  const lcpRef = useRef<HTMLDivElement>(null);
+  const inpRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef, { once: true, margin: "-80px" });
 
-  const [lcp, setLcp] = useState(animateIt ? 0 : 0.82);
-  const [inp, setInp] = useState(animateIt ? 0 : 34);
-  const [cls] = useState(0);
-
+  // The counters tick at frame rate. Driving them through useState re-rendered
+  // the whole card ~60 times a second for the length of the animation; writing
+  // straight to the two text nodes keeps the work off React entirely.
   useEffect(() => {
-    if (!animateIt || !inView) return;
-    const lcpControls = animate(0, 0.82, {
-      duration: 1.1,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: setLcp,
+    const lcpNode = lcpRef.current;
+    const inpNode = inpRef.current;
+    if (!lcpNode || !inpNode) return;
+
+    const showLcp = (v: number) => {
+      lcpNode.textContent = `${v.toFixed(2)}s`;
+    };
+    const showInp = (v: number) => {
+      inpNode.textContent = `${Math.round(v)}ms`;
+    };
+
+    // Reduced motion still needs the real numbers — not the zeroed start frame.
+    if (shouldReduceMotion) {
+      showLcp(LCP_TARGET);
+      showInp(INP_TARGET);
+      return;
+    }
+
+    if (!inView) return;
+
+    const options = { duration: 1.1, ease: [0.16, 1, 0.3, 1] } as const;
+    const lcpControls = animate(0, LCP_TARGET, {
+      ...options,
+      onUpdate: showLcp,
     });
-    const inpControls = animate(0, 34, {
-      duration: 1.1,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: setInp,
+    const inpControls = animate(0, INP_TARGET, {
+      ...options,
+      onUpdate: showInp,
     });
+
     return () => {
       lcpControls.stop();
       inpControls.stop();
     };
-  }, [animateIt, inView]);
+  }, [shouldReduceMotion, inView]);
 
   return (
     <div ref={containerRef} className="grid h-full grid-cols-3 gap-3">
       <div>
-        <div className="text-2xl font-semibold tracking-tight">
-          {lcp.toFixed(2)}s
+        <div
+          ref={lcpRef}
+          className="text-2xl font-semibold tracking-tight tabular-nums"
+        >
+          {LCP_TARGET.toFixed(2)}s
         </div>
         <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
           LCP
         </div>
       </div>
       <div>
-        <div className="text-2xl font-semibold tracking-tight">
-          {Math.round(inp)}ms
+        <div
+          ref={inpRef}
+          className="text-2xl font-semibold tracking-tight tabular-nums"
+        >
+          {INP_TARGET}ms
         </div>
         <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
           INP
         </div>
       </div>
       <div>
-        <div className="text-2xl font-semibold tracking-tight">
-          {cls.toFixed(3)}
+        <div className="text-2xl font-semibold tracking-tight tabular-nums">
+          {CLS_TARGET.toFixed(3)}
         </div>
         <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
           CLS

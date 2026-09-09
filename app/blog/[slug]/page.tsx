@@ -6,6 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { Button } from "@/app/ui";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
+import { formatDate } from "@/lib/format";
 import { mdxComponents } from "@/app/components/mdx-components";
 
 export function generateStaticParams() {
@@ -25,14 +26,6 @@ export async function generateMetadata({
   } catch {
     return {};
   }
-}
-
-function formatDate(date: string) {
-  return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 }
 
 export default async function BlogPost({

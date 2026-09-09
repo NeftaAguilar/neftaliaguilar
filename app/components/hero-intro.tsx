@@ -3,12 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { Button } from "@/app/ui";
-
-const links = {
-  github: "https://github.com/NeftaAguilar",
-  linkedin: "https://www.linkedin.com/in/neftaliaguilaralvarez/",
-  email: "mailto:hola@neftaliaguilar.com",
-};
+import { links } from "@/lib/links";
 
 const container: Variants = {
   hidden: {},

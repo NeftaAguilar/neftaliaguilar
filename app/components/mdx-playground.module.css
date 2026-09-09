@@ -89,3 +89,13 @@
   font-size: var(--nef-font-size-1);
   color: var(--nef-fg-subtle);
 }
+
+/* Reserves the playground's footprint while its chunk loads, so the
+   surrounding prose never shifts (CLS) once it hydrates in. */
+.placeholder {
+  margin-block: 2rem;
+  min-height: 30rem;
+  border: 1px solid var(--nef-border);
+  border-radius: var(--nef-radius-4);
+  background-color: var(--nef-panel);
+}
