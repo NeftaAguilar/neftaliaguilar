@@ -6,7 +6,7 @@ import { WorkCard } from "@/app/components/work-card";
 import { Reveal } from "@/app/components/reveal";
 import { SiteNav } from "@/app/components/site-nav";
 import { HeroIntro } from "@/app/components/hero-intro";
-import { HeroNefUiShowcase } from "@/app/components/hero-nef-ui-showcase";
+import { HeroBufferCard } from "@/app/components/hero-buffer-card";
 import { SkillsMarquee } from "@/app/components/skills-marquee";
 import { InteractionLab } from "@/app/components/interaction-lab";
 import { ToolboxGrid } from "@/app/components/toolbox-grid";
@@ -159,7 +159,7 @@ export default function Home() {
       {/* Hero */}
       <header className="mx-auto grid w-full max-w-5xl gap-8 px-6 pb-10 pt-12 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
         <HeroIntro />
-        <HeroNefUiShowcase />
+        <HeroBufferCard />
       </header>
 
       <div className="mx-auto w-full max-w-5xl px-6 sm:px-8">
@@ -168,7 +168,7 @@ export default function Home() {
 
       <main
         id="main-content"
-        className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8"
+        className="mx-auto w-full max-w-5xl flex-1 px-6 sm:px-8"
       >
         {/* Interaction lab */}
         <section

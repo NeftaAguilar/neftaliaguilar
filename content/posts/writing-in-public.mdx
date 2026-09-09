@@ -1,0 +1,48 @@
+---
+title: "I started writing in public. Here's what the numbers say."
+date: "2026-09-09"
+excerpt: "I began posting at the end of August to force myself to understand things properly. Every chart here reads live from Buffer's API — including the one that shows my most-seen post isn't writing at all."
+tags: ["Writing", "Data Viz", "Career"]
+---
+
+I started writing at the end of August — <Stat name="firstPostDate" />, to be exact.
+
+Not to build an audience. To force myself to understand things properly. The fastest way I know to find the holes in what I think I know is to try to explain it to someone else: the moment you write "and therefore" and can't finish the sentence, you've found the thing you didn't actually understand.
+
+So far that's <Stat name="posts" /> posts, <Stat name="impressions" /> impressions and <Stat name="reactions" /> reactions. This post is the receipt. Every number in it reads live from [Buffer's API](https://developers.buffer.com) on the server, refreshed once a day — so it will contradict me the moment the data does.
+
+<Stat name="posts" /> posts is not a sample size. It's a start. But the patterns are already sharp enough to have changed how I publish.
+
+## The network matters more than the post
+
+Every piece goes to both networks the same day, minutes apart — sometimes word for word, more often rewritten to fit each one. Whatever separates these bars, it isn't the idea.
+
+<CrossPostFigure />
+
+<Stat name="widestNetwork" /> shows my posts to roughly <Stat name="reachRatio" /> more people than <Stat name="narrowestNetwork" /> does. Same week, same argument, same person writing it. The distribution is doing more work than the prose.
+
+## Reach and engagement pull in opposite directions
+
+The obvious read is that one network is simply better. The numbers say something more useful.
+
+<EngagementFigure />
+
+The network that reaches the fewest people — <Stat name="narrowestNetwork" /> — is the one where the people who *do* see a post are about <Stat name="engagementRatio" /> more likely to reply, react, or click. A big room where nobody speaks, and a small one where everybody does.
+
+Read the right-hand side of that chart with suspicion, though. Those engagement rates come from denominators in the dozens. One reply on a post seen 24 times is 8%, and it means far less than the percentage suggests. The shape is real; the precision is not.
+
+## My most-seen post isn't writing at all
+
+Ranked by reach, the post at the top isn't an essay. It's a hiring announcement from <Stat name="topEarlierDate" />.
+
+<ReachRankingFigure />
+
+On its own it was seen <Stat name="topEarlierImpressions" /> times — more than every piece of writing since, combined. It's in a different colour above because it's a different kind of post, and dropping it would have made the chart flatter and less true.
+
+That's the part worth sitting with. Reach follows what people need right now — a job, a link, a favour — not how carefully something was written. Which is a decent argument for writing to understand rather than writing to be seen: the first goal I control completely, and it pays out whether or not the second one ever does.
+
+## Still early
+
+I'm keeping the cadence and letting this post update itself. It reads the API on every rebuild, so these charts will get less flattering or more interesting without me touching a word of it.
+
+Come back in a few months. It'll be a different post.

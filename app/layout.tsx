@@ -69,6 +69,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      // The script below writes `data-theme` before React hydrates, so the
+      // client tree legitimately differs from the server's on this element.
+      // Scoped to <html>: it does not suppress warnings for descendants.
+      suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeSyncScript }} />

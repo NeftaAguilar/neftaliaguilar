@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/app/ui";
 import { links } from "@/lib/links";
+import { ThemeToggle } from "@/app/components/theme-toggle";
 
 const sections = [
   { href: "#lab", label: "Lab" },
@@ -31,7 +32,7 @@ export function SiteNav() {
           : "shadow-[var(--nef-shadow-1)]"
       }`}
     >
-      <div className="mr-1 flex w-full shrink-0 items-center justify-center gap-2.5 sm:w-auto sm:justify-start">
+      <div className="mr-1 flex shrink-0 items-center gap-2.5">
         <div className="grid size-7 shrink-0 place-items-center rounded-lg bg-foreground text-xs font-bold tracking-tight text-background">
           NA
         </div>
@@ -40,6 +41,9 @@ export function SiteNav() {
         </span>
       </div>
       <div className="flex-1" />
+      {/* Outside the `sm:` group on purpose — the theme toggle is the one
+          control here that has to stay reachable on a phone. */}
+      <ThemeToggle className="shrink-0" />
       <div className="hidden shrink-0 items-center gap-0.5 sm:flex">
         {sections.map((section) => (
           <a
