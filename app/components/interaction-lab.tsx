@@ -108,6 +108,7 @@ function SegmentedSwitchDemo() {
 }
 
 let toastId = 0;
+const MAX_TOASTS = 3;
 const TOAST_COPY: [string, string][] = [
   ["Build passed", "CI · main · 48s"],
   ["Deploy succeeded", "production · edge"],
@@ -132,19 +133,32 @@ function ToastEngineDemo() {
     };
   }, []);
 
-  const dismiss = (id: number) => {
+  const retireTimer = (id: number) => {
     const timer = timersRef.current.get(id);
     if (timer !== undefined) {
       clearTimeout(timer);
       timersRef.current.delete(id);
     }
+  };
+
+  const dismiss = (id: number) => {
+    retireTimer(id);
     setToasts((t) => t.filter((toast) => toast.id !== id));
   };
 
   const push = () => {
     const [title, meta] = TOAST_COPY[toastId % TOAST_COPY.length];
     const id = ++toastId;
-    setToasts((t) => [{ id, title, meta }, ...t].slice(0, 3));
+
+    // Prepending one toast pushes everything from MAX_TOASTS - 1 onward past
+    // the cap. Those are about to leave the queue for good, so retire their
+    // timers now instead of letting them fire into a toast that is already
+    // gone — which would dismiss nothing and re-render for no reason.
+    for (const evicted of toasts.slice(MAX_TOASTS - 1)) {
+      retireTimer(evicted.id);
+    }
+
+    setToasts((t) => [{ id, title, meta }, ...t].slice(0, MAX_TOASTS));
     timersRef.current.set(
       id,
       setTimeout(() => dismiss(id), 4200),

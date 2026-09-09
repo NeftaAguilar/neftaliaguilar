@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { emailAddress, links } from "@/lib/links";
 import {
   Button,
   DropdownMenu,
@@ -20,9 +21,6 @@ function subscribeToTheme(onChange: () => void) {
   });
   return () => observer.disconnect();
 }
-
-const EMAIL = "hola@neftaliaguilar.com";
-const SOURCE_URL = "https://github.com/NeftaAguilar/neftaliaguilar";
 
 function getThemeSnapshot() {
   return document.documentElement.getAttribute("data-theme") === "dark";
@@ -53,7 +51,7 @@ export function HeroNefUiShowcase() {
 
   const copyEmail = () => {
     navigator.clipboard
-      ?.writeText(EMAIL)
+      ?.writeText(emailAddress)
       .then(() => {
         setCopied(true);
         clearTimeout(copiedTimerRef.current);
@@ -135,7 +133,7 @@ export function HeroNefUiShowcase() {
                     <DropdownMenu.Item
                       shortcut="⌘G"
                       onSelect={() =>
-                        window.open(SOURCE_URL, "_blank", "noopener")
+                        window.open(links.source, "_blank", "noopener")
                       }
                     >
                       View source on GitHub

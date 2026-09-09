@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/app/ui";
+import { links } from "@/lib/links";
 
 const sections = [
   { href: "#lab", label: "Lab" },
@@ -50,7 +51,7 @@ export function SiteNav() {
           </a>
         ))}
         <Button asChild variant="solid" size="sm" className="ml-1.5 shrink-0">
-          <a href="mailto:hola@neftaliaguilar.com">Get in touch</a>
+          <a href={links.email}>Get in touch</a>
         </Button>
       </div>
     </nav>
