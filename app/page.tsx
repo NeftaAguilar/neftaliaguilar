@@ -5,9 +5,12 @@ import { PostCard } from "@/app/components/post-card";
 import { WorkCard } from "@/app/components/work-card";
 import { Reveal } from "@/app/components/reveal";
 import { SiteNav } from "@/app/components/site-nav";
+import { HeroIntro } from "@/app/components/hero-intro";
 import { HeroNefUiShowcase } from "@/app/components/hero-nef-ui-showcase";
 import { SkillsMarquee } from "@/app/components/skills-marquee";
 import { InteractionLab } from "@/app/components/interaction-lab";
+import { ToolboxGrid } from "@/app/components/toolbox-grid";
+import { ExperienceTimeline } from "@/app/components/experience-timeline";
 import { getLatestPosts } from "@/lib/posts";
 import { getAllCaseStudies } from "@/lib/work";
 
@@ -160,49 +163,7 @@ export default function Home() {
 
       {/* Hero */}
       <header className="mx-auto grid w-full max-w-5xl gap-8 px-6 pb-10 pt-12 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
-        <div>
-          <p className="text-sm font-medium uppercase tracking-widest text-muted">
-            Neftali Aguilar
-          </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-            Senior Software Engineer bridging visual craft and{" "}
-            <span className="font-serif font-normal italic">
-              scalable frontend architecture.
-            </span>
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-            Senior software engineer focused on design systems, interaction
-            detail, and accessibility — React and TypeScript products built on
-            component systems teams can trust.
-          </p>
-          <p className="mt-3 max-w-2xl text-sm text-muted">
-            Currently deepening AI-augmented engineering: the Vercel AI SDK,
-            RAG, and agentic developer workflows.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild variant="solid" size="lg">
-              <Link href="#work">See my work</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <a href={links.email}>Email me</a>
-            </Button>
-            <Button asChild variant="ghost" size="lg">
-              <a href={links.github} target="_blank" rel="noopener noreferrer">
-                GitHub
-              </a>
-            </Button>
-            <Button asChild variant="ghost" size="lg">
-              <a
-                href={links.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-            </Button>
-          </div>
-        </div>
-
+        <HeroIntro />
         <HeroNefUiShowcase />
       </header>
 
@@ -311,25 +272,7 @@ export default function Home() {
               eyebrow="Toolbox"
               title="Skills"
             />
-            <div className="grid gap-8 sm:grid-cols-2">
-              {skillGroups.map((group) => (
-                <div key={group.label}>
-                  <h3 className="text-sm font-semibold text-foreground">
-                    {group.label}
-                  </h3>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <li
-                        key={skill}
-                        className="rounded-md bg-surface px-2.5 py-1 text-xs font-medium text-muted"
-                      >
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+            <ToolboxGrid groups={skillGroups} />
           </Reveal>
         </section>
 
@@ -345,25 +288,7 @@ export default function Home() {
               eyebrow="Experience"
               title="Where I've worked"
             />
-            <div className="space-y-8 border-l border-border pl-6">
-              {experience.map((job) => (
-                <article key={job.company} className="relative">
-                  <span className="absolute -left-[27px] top-1.5 size-2 rounded-full bg-[var(--nef-accent)] shadow-[0_0_0_3px_var(--color-background)]" />
-                  <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
-                    <h3 className="font-semibold text-foreground">
-                      {job.role} · {job.company}
-                    </h3>
-                    <p className="text-sm text-muted">{job.period}</p>
-                  </div>
-                  <p className="text-sm text-muted">{job.location}</p>
-                  <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted">
-                    {job.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
+            <ExperienceTimeline roles={experience} />
           </Reveal>
 
           <Reveal delay={0.1}>
