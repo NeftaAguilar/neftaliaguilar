@@ -156,9 +156,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-1 flex-col bg-background text-foreground">
-      <div className="px-4 pt-3 sm:px-6">
-        <SiteNav />
-      </div>
+      <SiteNav />
 
       {/* Hero */}
       <header className="mx-auto grid w-full max-w-5xl gap-8 px-6 pb-10 pt-12 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">

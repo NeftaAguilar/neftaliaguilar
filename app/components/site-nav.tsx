@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Button } from "@/app/ui";
 
 const sections = [
@@ -9,39 +12,44 @@ const sections = [
 ];
 
 export function SiteNav() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 4);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <nav
       aria-label="Section"
-      className="sticky top-3 z-50 mx-auto flex max-w-3xl flex-wrap items-center gap-2 rounded-2xl border border-border bg-background/85 px-3 py-2 shadow-[var(--nef-shadow-1)] backdrop-blur-md"
+      className={`sticky top-3 z-50 mx-auto flex w-[calc(100%-2rem)] max-w-3xl items-center gap-2 overflow-x-auto rounded-2xl border border-border bg-background/85 px-3 py-2 backdrop-blur-md transition-shadow duration-[var(--nef-duration-normal)] ease-[var(--nef-ease-out)] sm:w-[calc(100%-3rem)] ${
+        scrolled
+          ? "shadow-[var(--nef-shadow-3)]"
+          : "shadow-[var(--nef-shadow-1)]"
+      }`}
     >
-      <div className="mr-1 flex items-center gap-2.5">
-        <div className="grid size-7 place-items-center rounded-lg bg-foreground text-xs font-bold tracking-tight text-background">
+      <div className="mr-1 flex w-full shrink-0 items-center justify-center gap-2.5 sm:w-auto sm:justify-start">
+        <div className="grid size-7 shrink-0 place-items-center rounded-lg bg-foreground text-xs font-bold tracking-tight text-background">
           NA
         </div>
-        <span className="hidden text-xs font-semibold leading-tight sm:block">
-          Neftali
-          <br />
-          Aguilar
-        </span>
-      </div>
-      <div className="flex items-center gap-1.5 rounded-full border border-border bg-[var(--nef-accent-surface)] px-2.5 py-1">
-        <span className="size-1.5 rounded-full bg-[var(--nef-accent)]" />
-        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-[var(--nef-accent-text)]">
-          Available · Senior Design Engineer
+        <span className="whitespace-nowrap text-xs font-semibold">
+          Neftali Aguilar
         </span>
       </div>
       <div className="flex-1" />
-      <div className="flex flex-wrap items-center gap-0.5">
+      <div className="hidden shrink-0 items-center gap-0.5 sm:flex">
         {sections.map((section) => (
           <a
             key={section.href}
             href={section.href}
-            className="rounded-lg px-2.5 py-1.5 text-[13px] text-muted transition-colors duration-[var(--nef-duration-fast)] ease-[var(--nef-ease-out)] hover:bg-surface hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
+            className="rounded-lg px-2.5 py-1.5 text-[13px] whitespace-nowrap text-muted transition-colors duration-[var(--nef-duration-fast)] ease-[var(--nef-ease-out)] hover:bg-surface hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
           >
             {section.label}
           </a>
         ))}
-        <Button asChild variant="solid" size="sm" className="ml-1.5">
+        <Button asChild variant="solid" size="sm" className="ml-1.5 shrink-0">
           <a href="mailto:hola@neftaliaguilar.com">Get in touch</a>
         </Button>
       </div>
