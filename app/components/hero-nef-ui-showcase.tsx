@@ -101,8 +101,12 @@ export function HeroNefUiShowcase() {
 
               <Tabs.Content value="overlays">
                 <p className="mb-3 text-[13px] leading-relaxed text-muted">
-                  Roving focus, typeahead, and Escape-to-close come from Radix —
-                  this menu is keyboard-navigable out of the box.
+                  Roving focus, typeahead, and Escape-to-close come from{" "}
+                  <Link href="/work/nef-ui" className="underline">
+                    Radix — deliberately, with Base UI tracked as its likely
+                    successor
+                  </Link>
+                  .
                 </p>
                 <DropdownMenu>
                   <DropdownMenu.Trigger asChild>
@@ -150,6 +154,9 @@ export function HeroNefUiShowcase() {
           </div>
 
           <div className="border-t border-border px-4 py-3">
+            <p className="mb-1.5 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted/70">
+              CSS Modules · Radix Primitives · Motion
+            </p>
             <Link
               href="/work/nef-ui"
               className="text-[13px] font-semibold text-[var(--nef-accent-text)] hover:underline"
