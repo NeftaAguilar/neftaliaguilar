@@ -75,6 +75,10 @@ export function BufferChart({ weeks }: { weeks: BufferWeek[] }) {
             data={weeks}
             margin={{ top: 4, right: 0, bottom: 0, left: 0 }}
             barCategoryGap={2}
+            // Recharts' a11y layer puts tabindex=0 + role="application" on the
+            // <svg>; inside the aria-hidden wrapper that is a focusable node
+            // hidden from AT. The sr-only table above is the accessible chart.
+            accessibilityLayer={false}
           >
             <XAxis
               dataKey="axisLabel"

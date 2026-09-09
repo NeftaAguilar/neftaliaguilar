@@ -111,6 +111,7 @@ export function CrossPostChart({ data }: { data: CrossPostDatum[] }) {
             layout="vertical"
             margin={{ top: 4, right: 16, bottom: 0, left: 0 }}
             barGap={2}
+            accessibilityLayer={false}
           >
             <CartesianGrid horizontal={false} stroke={gridStroke} />
             <XAxis
@@ -223,7 +224,10 @@ export function EngagementScatter({
 
       <div aria-hidden="true" className="h-[280px] w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <ScatterChart margin={{ top: 4, right: 16, bottom: 24, left: 0 }}>
+          <ScatterChart
+            margin={{ top: 4, right: 16, bottom: 24, left: 0 }}
+            accessibilityLayer={false}
+          >
             <CartesianGrid stroke={gridStroke} />
             <XAxis
               type="number"
@@ -340,6 +344,7 @@ export function ReachRankingChart({ data }: { data: RankedDatum[] }) {
             data={data}
             layout="vertical"
             margin={{ top: 4, right: 44, bottom: 0, left: 0 }}
+            accessibilityLayer={false}
           >
             <XAxis type="number" hide />
             <YAxis
