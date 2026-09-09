@@ -113,8 +113,14 @@ resolves through these same tokens.
 ## Try it
 
 This is the actual npm package, not a screenshot. Switch the accent or the
-theme and every component below re-renders through the same semantic tokens
-— nothing here is a one-off recreation.
+theme and the Actions and Forms tabs below re-render through the same
+semantic tokens — nothing here is a one-off recreation.
+
+The Overlays tab is the one honest exception: Radix portals `Dialog`,
+`Tooltip`, and `DropdownMenu` content to `document.body`, outside this
+scoped demo, so they render this site's own default theme rather than
+whatever you've picked above — the same constraint any consumer hits
+without a portal-container prop, which the library doesn't expose yet.
 
 <MdxPlayground />
 

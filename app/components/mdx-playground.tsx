@@ -151,6 +151,10 @@ export function MdxPlayground() {
               </Tabs.Content>
 
               <Tabs.Content value="overlays">
+                <p className={styles.hint}>
+                  Radix portals this content to <code>document.body</code>, so
+                  it renders the site&apos;s own theme — not the swatches above.
+                </p>
                 <div className={styles.row}>
                   <Dialog>
                     <Dialog.Trigger asChild>

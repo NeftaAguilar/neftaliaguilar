@@ -34,3 +34,15 @@ body {
 [data-theme="dark"] {
   --nef-fg-muted: #9295a0;
 }
+
+/* The browser's View Transitions API (behind React's <ViewTransition>,
+   used for the card -> detail title morph) doesn't honour
+   prefers-reduced-motion on its own — this is Next's own documented fix. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
