@@ -16,12 +16,15 @@ export default function BlogIndex() {
 
   return (
     <div className="flex flex-1 flex-col bg-background text-foreground">
-      <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-24 sm:px-8">
+      <main
+        id="main-content"
+        className="mx-auto w-full max-w-3xl flex-1 px-6 py-24 sm:px-8"
+      >
         <Button asChild variant="ghost" size="sm">
           <Link href="/">← Back to home</Link>
         </Button>
         <div className="mt-8">
-          <SectionHeading eyebrow="Writing" title="Blog" />
+          <SectionHeading level={1} eyebrow="Writing" title="Blog" />
         </div>
         <div className="space-y-4">
           {posts.map((post) => (

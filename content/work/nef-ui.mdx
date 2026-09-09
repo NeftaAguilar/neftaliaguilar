@@ -110,11 +110,22 @@ resolves through these same tokens.
   changelog via Changesets, so consumers (this site included) upgrade
   deliberately instead of pulling from a private monorepo path.
 
+## Try it
+
+This is the actual npm package, not a screenshot. Switch the accent or the
+theme and the Actions and Forms tabs below re-render through the same
+semantic tokens — nothing here is a one-off recreation.
+
+The Overlays tab is the one honest exception: Radix portals `Dialog`,
+`Tooltip`, and `DropdownMenu` content to `document.body`, outside this
+scoped demo, so they render this site's own default theme rather than
+whatever you've picked above — the same constraint any consumer hits
+without a portal-container prop, which the library doesn't expose yet.
+
+<MdxPlayground />
+
 ## Outcome
 
-This site imports `@neftaliaguilar/ui` and themes through the same semantic
-tokens described above — the `Button` component in the hero is the same one
-documented in Storybook, not a one-off recreation. The next phase of this
-case study is a live playground, embedded right on this page, that lets you
-exercise the components and their token-driven theming directly rather than
-taking my word for it.
+This site imports `@neftaliaguilar/ui` too, and themes through the same
+tokens the playground above rewrites — the `Button` in the hero is the same
+component, not a lookalike.

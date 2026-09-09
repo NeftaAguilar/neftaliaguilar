@@ -3,6 +3,7 @@ import { Button } from "./ui";
 import { SectionHeading } from "@/app/components/section-heading";
 import { PostCard } from "@/app/components/post-card";
 import { WorkCard } from "@/app/components/work-card";
+import { Reveal } from "@/app/components/reveal";
 import { getLatestPosts } from "@/lib/posts";
 import { getAllCaseStudies } from "@/lib/work";
 
@@ -188,28 +189,33 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8">
+      <main
+        id="main-content"
+        className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8"
+      >
         {/* Selected work */}
         {caseStudies.length > 0 && (
           <section
             aria-labelledby="work-heading"
             className="border-t border-border py-16"
           >
-            <SectionHeading
-              id="work-heading"
-              eyebrow="Selected work"
-              title="Case studies"
-            />
-            <div className="space-y-4">
-              {caseStudies.map((study) => (
-                <WorkCard key={study.slug} study={study} />
-              ))}
-            </div>
-            <div className="mt-6">
-              <Button asChild variant="outline">
-                <Link href="/work">View all work</Link>
-              </Button>
-            </div>
+            <Reveal>
+              <SectionHeading
+                id="work-heading"
+                eyebrow="Selected work"
+                title="Case studies"
+              />
+              <div className="space-y-4">
+                {caseStudies.map((study) => (
+                  <WorkCard key={study.slug} study={study} />
+                ))}
+              </div>
+              <div className="mt-6">
+                <Button asChild variant="outline">
+                  <Link href="/work">View all work</Link>
+                </Button>
+              </div>
+            </Reveal>
           </section>
         )}
 
@@ -219,21 +225,23 @@ export default function Home() {
             aria-labelledby="blog-heading"
             className="border-t border-border py-16"
           >
-            <SectionHeading
-              id="blog-heading"
-              eyebrow="Writing"
-              title="Latest posts"
-            />
-            <div className="space-y-4">
-              {latestPosts.map((post) => (
-                <PostCard key={post.slug} post={post} />
-              ))}
-            </div>
-            <div className="mt-6">
-              <Button asChild variant="outline">
-                <Link href="/blog">View all posts</Link>
-              </Button>
-            </div>
+            <Reveal>
+              <SectionHeading
+                id="blog-heading"
+                eyebrow="Writing"
+                title="Latest posts"
+              />
+              <div className="space-y-4">
+                {latestPosts.map((post) => (
+                  <PostCard key={post.slug} post={post} />
+                ))}
+              </div>
+              <div className="mt-6">
+                <Button asChild variant="outline">
+                  <Link href="/blog">View all posts</Link>
+                </Button>
+              </div>
+            </Reveal>
           </section>
         )}
 
@@ -242,29 +250,31 @@ export default function Home() {
           aria-labelledby="experience-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading
-            id="experience-heading"
-            eyebrow="Experience"
-            title="Where I've worked"
-          />
-          <div className="space-y-10">
-            {experience.map((job) => (
-              <article key={job.company}>
-                <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
-                  <h3 className="font-semibold text-foreground">
-                    {job.role} · {job.company}
-                  </h3>
-                  <p className="text-sm text-muted">{job.period}</p>
-                </div>
-                <p className="text-sm text-muted">{job.location}</p>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted">
-                  {job.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
+          <Reveal>
+            <SectionHeading
+              id="experience-heading"
+              eyebrow="Experience"
+              title="Where I've worked"
+            />
+            <div className="space-y-10">
+              {experience.map((job) => (
+                <article key={job.company}>
+                  <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
+                    <h3 className="font-semibold text-foreground">
+                      {job.role} · {job.company}
+                    </h3>
+                    <p className="text-sm text-muted">{job.period}</p>
+                  </div>
+                  <p className="text-sm text-muted">{job.location}</p>
+                  <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted">
+                    {job.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </Reveal>
         </section>
 
         {/* AI-Augmented Development Workflow */}
@@ -272,29 +282,31 @@ export default function Home() {
           aria-labelledby="workflow-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading
-            id="workflow-heading"
-            eyebrow="How I build"
-            title="AI-augmented development workflow"
-          />
-          <ol className="grid gap-6 sm:grid-cols-2">
-            {workflowSteps.map((step, index) => (
-              <li
-                key={step.title}
-                className="rounded-2xl border border-border p-5"
-              >
-                <span className="text-sm font-medium text-muted">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-2 font-semibold text-foreground">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-muted">
-                  {step.description}
-                </p>
-              </li>
-            ))}
-          </ol>
+          <Reveal>
+            <SectionHeading
+              id="workflow-heading"
+              eyebrow="How I build"
+              title="AI-augmented development workflow"
+            />
+            <ol className="grid gap-6 sm:grid-cols-2">
+              {workflowSteps.map((step, index) => (
+                <li
+                  key={step.title}
+                  className="rounded-2xl border border-border p-5"
+                >
+                  <span className="text-sm font-medium text-muted">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-2 font-semibold text-foreground">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-muted">
+                    {step.description}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
         </section>
 
         {/* Skills */}
@@ -302,30 +314,32 @@ export default function Home() {
           aria-labelledby="skills-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading
-            id="skills-heading"
-            eyebrow="Toolbox"
-            title="Skills"
-          />
-          <div className="grid gap-8 sm:grid-cols-2">
-            {skillGroups.map((group) => (
-              <div key={group.label}>
-                <h3 className="text-sm font-semibold text-foreground">
-                  {group.label}
-                </h3>
-                <ul className="mt-3 flex flex-wrap gap-2">
-                  {group.skills.map((skill) => (
-                    <li
-                      key={skill}
-                      className="rounded-md bg-surface px-2.5 py-1 text-xs font-medium text-muted"
-                    >
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <Reveal>
+            <SectionHeading
+              id="skills-heading"
+              eyebrow="Toolbox"
+              title="Skills"
+            />
+            <div className="grid gap-8 sm:grid-cols-2">
+              {skillGroups.map((group) => (
+                <div key={group.label}>
+                  <h3 className="text-sm font-semibold text-foreground">
+                    {group.label}
+                  </h3>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {group.skills.map((skill) => (
+                      <li
+                        key={skill}
+                        className="rounded-md bg-surface px-2.5 py-1 text-xs font-medium text-muted"
+                      >
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </section>
 
         {/* Education */}
@@ -333,25 +347,90 @@ export default function Home() {
           aria-labelledby="education-heading"
           className="border-t border-border py-16"
         >
-          <SectionHeading
-            id="education-heading"
-            eyebrow="Background"
-            title="Education"
-          />
-          <ul className="space-y-2 text-sm leading-6 text-muted">
-            <li>
-              <span className="font-medium text-foreground">
-                Universidad Tecnológica de Bahía de Banderas
-              </span>{" "}
-              — B.S. Software Engineering (2014–2017)
-            </li>
-            <li>
-              <span className="font-medium text-foreground">
-                Dominican University, Chicago
-              </span>{" "}
-              — English Scholarship (2014)
-            </li>
-          </ul>
+          <Reveal>
+            <SectionHeading
+              id="education-heading"
+              eyebrow="Background"
+              title="Education"
+            />
+            <ul className="space-y-2 text-sm leading-6 text-muted">
+              <li>
+                <span className="font-medium text-foreground">
+                  Universidad Tecnológica de Bahía de Banderas
+                </span>{" "}
+                — B.S. Software Engineering (2014–2017)
+              </li>
+              <li>
+                <span className="font-medium text-foreground">
+                  Dominican University, Chicago
+                </span>{" "}
+                — English Scholarship (2014)
+              </li>
+            </ul>
+          </Reveal>
+        </section>
+
+        {/* Craft receipts */}
+        <section
+          aria-labelledby="craft-heading"
+          className="border-t border-border py-16"
+        >
+          <Reveal>
+            <SectionHeading
+              id="craft-heading"
+              eyebrow="Craft"
+              title="How this site is built"
+            />
+            <p className="max-w-2xl text-base leading-7 text-muted">
+              Lighthouse scores measured against a production build, not the dev
+              server — the number that actually ships.
+            </p>
+            <dl className="mt-6 grid gap-4 border-y border-border py-6 sm:grid-cols-2">
+              <div>
+                <dt className="text-xs font-medium uppercase tracking-widest text-muted">
+                  Accessibility
+                </dt>
+                <dd className="mt-1 text-2xl font-semibold text-foreground">
+                  100
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-medium uppercase tracking-widest text-muted">
+                  SEO
+                </dt>
+                <dd className="mt-1 text-2xl font-semibold text-foreground">
+                  100
+                </dd>
+              </div>
+            </dl>
+            <ul className="mt-6 list-disc space-y-2 pl-5 text-sm leading-6 text-muted">
+              <li>
+                A skip-to-content link, correct heading order on every route
+                (each page has exactly one h1), and focus-visible states — using
+                the design system&apos;s own{" "}
+                <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
+                  --nef-focus-ring
+                </code>{" "}
+                token — on every interactive element that didn&apos;t already
+                have one.
+              </li>
+              <li>
+                The design system&apos;s default muted-text color measured 3.1:1
+                against its own background — under WCAG AA&apos;s 4.5:1 for body
+                text. Darkened it here (site-only override, the published token
+                is unchanged) since this site leans on it for more than
+                captions.
+              </li>
+              <li>
+                Every animation on this page — the scroll reveals, the view
+                transitions, the playground&apos;s own motion — honors{" "}
+                <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
+                  prefers-reduced-motion
+                </code>
+                . Turn it on in your OS settings and reload.
+              </li>
+            </ul>
+          </Reveal>
         </section>
       </main>
 
@@ -361,20 +440,29 @@ export default function Home() {
             © {new Date().getFullYear()} Neftali Aguilar.
           </p>
           <div className="flex gap-6 text-sm font-medium text-muted">
-            <Link href="/work" className="hover:text-foreground">
+            <Link
+              href="/work"
+              className="rounded-sm transition-colors duration-[var(--nef-duration-normal)] ease-[var(--nef-ease-out)] hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
+            >
               Work
             </Link>
-            <Link href="/blog" className="hover:text-foreground">
+            <Link
+              href="/blog"
+              className="rounded-sm transition-colors duration-[var(--nef-duration-normal)] ease-[var(--nef-ease-out)] hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
+            >
               Blog
             </Link>
-            <a href={links.email} className="hover:text-foreground">
+            <a
+              href={links.email}
+              className="rounded-sm transition-colors duration-[var(--nef-duration-normal)] ease-[var(--nef-ease-out)] hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
+            >
               Email
             </a>
             <a
               href={links.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground"
+              className="rounded-sm transition-colors duration-[var(--nef-duration-normal)] ease-[var(--nef-ease-out)] hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
             >
               GitHub
             </a>
@@ -382,7 +470,7 @@ export default function Home() {
               href={links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground"
+              className="rounded-sm transition-colors duration-[var(--nef-duration-normal)] ease-[var(--nef-ease-out)] hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
             >
               LinkedIn
             </a>

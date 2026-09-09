@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 import Image from "next/image";
+import { MdxPlayground } from "./mdx-playground";
 
 function cx(...classes: Array<string | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -123,4 +124,5 @@ export const mdxComponents = {
   ),
   VideoEmbed,
   Image,
+  MdxPlayground,
 };
