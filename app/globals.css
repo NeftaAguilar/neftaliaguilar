@@ -23,6 +23,51 @@ body {
   font-family: var(--font-geist-sans), var(--nef-font-sans);
 }
 
+.nef-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+.nef-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--nef-border);
+}
+.nef-range::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--nef-border);
+}
+.nef-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  margin-top: -6px;
+  border-radius: 999px;
+  background: var(--nef-fg);
+  border: 3px solid var(--nef-bg);
+  box-shadow: 0 0 0 1px var(--nef-fg);
+  cursor: grab;
+}
+.nef-range::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 999px;
+  background: var(--nef-fg);
+  border: 3px solid var(--nef-bg);
+  box-shadow: 0 0 0 1px var(--nef-fg);
+  cursor: grab;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 /* nef-ui's --nef-fg-muted is 3.1:1 (light) / 3.4:1 (dark) against its own
    background — under WCAG AA's 4.5:1 for normal text. This site leans on
    that token for body-sized copy (not just captions), so darken it here.

@@ -4,6 +4,10 @@ import { SectionHeading } from "@/app/components/section-heading";
 import { PostCard } from "@/app/components/post-card";
 import { WorkCard } from "@/app/components/work-card";
 import { Reveal } from "@/app/components/reveal";
+import { SiteNav } from "@/app/components/site-nav";
+import { HeroSpringDemo } from "@/app/components/hero-spring-demo";
+import { SkillsMarquee } from "@/app/components/skills-marquee";
+import { InteractionLab } from "@/app/components/interaction-lab";
 import { getLatestPosts } from "@/lib/posts";
 import { getAllCaseStudies } from "@/lib/work";
 
@@ -152,50 +156,95 @@ export default function Home() {
 
   return (
     <div className="flex flex-1 flex-col bg-background text-foreground">
+      <div className="px-4 pt-3 sm:px-6">
+        <SiteNav />
+      </div>
+
       {/* Hero */}
-      <header className="mx-auto w-full max-w-3xl px-6 pb-16 pt-24 sm:px-8">
-        <p className="text-sm font-medium uppercase tracking-widest text-muted">
-          Neftali Aguilar
-        </p>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-          I build the layer where design becomes code.
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-          Senior software engineer focused on design systems, interaction
-          detail, and accessibility — React and TypeScript products built on
-          component systems teams can trust.
-        </p>
-        <p className="mt-3 max-w-2xl text-sm text-muted">
-          Currently deepening AI-augmented engineering: the Vercel AI SDK, RAG,
-          and agentic developer workflows.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button asChild variant="solid" size="lg">
-            <Link href="/work">See my work</Link>
-          </Button>
-          <Button asChild variant="outline" size="lg">
-            <a href={links.email}>Email me</a>
-          </Button>
-          <Button asChild variant="ghost" size="lg">
-            <a href={links.github} target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
-          </Button>
-          <Button asChild variant="ghost" size="lg">
-            <a href={links.linkedin} target="_blank" rel="noopener noreferrer">
-              LinkedIn
-            </a>
-          </Button>
+      <header className="mx-auto grid w-full max-w-5xl gap-8 px-6 pb-10 pt-12 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
+        <div>
+          <p className="text-sm font-medium uppercase tracking-widest text-muted">
+            Neftali Aguilar
+          </p>
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+            Senior Software Engineer bridging visual craft and{" "}
+            <span className="font-serif font-normal italic">
+              scalable frontend architecture.
+            </span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
+            Senior software engineer focused on design systems, interaction
+            detail, and accessibility — React and TypeScript products built on
+            component systems teams can trust.
+          </p>
+          <p className="mt-3 max-w-2xl text-sm text-muted">
+            Currently deepening AI-augmented engineering: the Vercel AI SDK,
+            RAG, and agentic developer workflows.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild variant="solid" size="lg">
+              <Link href="#work">See my work</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <a href={links.email}>Email me</a>
+            </Button>
+            <Button asChild variant="ghost" size="lg">
+              <a href={links.github} target="_blank" rel="noopener noreferrer">
+                GitHub
+              </a>
+            </Button>
+            <Button asChild variant="ghost" size="lg">
+              <a
+                href={links.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+              </a>
+            </Button>
+          </div>
         </div>
+
+        <HeroSpringDemo />
       </header>
+
+      <div className="mx-auto w-full max-w-5xl px-6 sm:px-8">
+        <SkillsMarquee />
+      </div>
 
       <main
         id="main-content"
         className="mx-auto w-full max-w-3xl flex-1 px-6 sm:px-8"
       >
+        {/* Interaction lab */}
+        <section
+          id="lab"
+          aria-labelledby="lab-heading"
+          className="border-t border-border py-16"
+        >
+          <Reveal>
+            <SectionHeading
+              id="lab-heading"
+              eyebrow="Craft, running live"
+              title="The interaction lab"
+            />
+            <p className="-mt-6 mb-8 max-w-2xl text-base leading-7 text-muted">
+              Touch anything below. Four interactions, hand-built on this
+              site&apos;s own{" "}
+              <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
+                motion
+              </code>{" "}
+              dependency: springs, notification choreography, keyboard-first
+              commands, and the vitals telemetry that keeps them honest.
+            </p>
+            <InteractionLab />
+          </Reveal>
+        </section>
+
         {/* Selected work */}
         {caseStudies.length > 0 && (
           <section
+            id="work"
             aria-labelledby="work-heading"
             className="border-t border-border py-16"
           >
@@ -219,66 +268,9 @@ export default function Home() {
           </section>
         )}
 
-        {/* Latest posts */}
-        {latestPosts.length > 0 && (
-          <section
-            aria-labelledby="blog-heading"
-            className="border-t border-border py-16"
-          >
-            <Reveal>
-              <SectionHeading
-                id="blog-heading"
-                eyebrow="Writing"
-                title="Latest posts"
-              />
-              <div className="space-y-4">
-                {latestPosts.map((post) => (
-                  <PostCard key={post.slug} post={post} />
-                ))}
-              </div>
-              <div className="mt-6">
-                <Button asChild variant="outline">
-                  <Link href="/blog">View all posts</Link>
-                </Button>
-              </div>
-            </Reveal>
-          </section>
-        )}
-
-        {/* Experience */}
-        <section
-          aria-labelledby="experience-heading"
-          className="border-t border-border py-16"
-        >
-          <Reveal>
-            <SectionHeading
-              id="experience-heading"
-              eyebrow="Experience"
-              title="Where I've worked"
-            />
-            <div className="space-y-10">
-              {experience.map((job) => (
-                <article key={job.company}>
-                  <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
-                    <h3 className="font-semibold text-foreground">
-                      {job.role} · {job.company}
-                    </h3>
-                    <p className="text-sm text-muted">{job.period}</p>
-                  </div>
-                  <p className="text-sm text-muted">{job.location}</p>
-                  <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted">
-                    {job.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </Reveal>
-        </section>
-
         {/* AI-Augmented Development Workflow */}
         <section
+          id="process"
           aria-labelledby="workflow-heading"
           className="border-t border-border py-16"
         >
@@ -294,7 +286,7 @@ export default function Home() {
                   key={step.title}
                   className="rounded-2xl border border-border p-5"
                 >
-                  <span className="text-sm font-medium text-muted">
+                  <span className="font-mono text-sm font-medium text-[var(--nef-accent-text)]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-2 font-semibold text-foreground">
@@ -311,6 +303,7 @@ export default function Home() {
 
         {/* Skills */}
         <section
+          id="toolbox"
           aria-labelledby="skills-heading"
           className="border-t border-border py-16"
         >
@@ -342,33 +335,104 @@ export default function Home() {
           </Reveal>
         </section>
 
-        {/* Education */}
+        {/* Experience & education */}
         <section
-          aria-labelledby="education-heading"
-          className="border-t border-border py-16"
+          id="experience"
+          aria-labelledby="experience-heading"
+          className="grid gap-10 border-t border-border py-16 lg:grid-cols-[1.3fr_1fr]"
         >
           <Reveal>
             <SectionHeading
-              id="education-heading"
-              eyebrow="Background"
-              title="Education"
+              id="experience-heading"
+              eyebrow="Experience"
+              title="Where I've worked"
             />
-            <ul className="space-y-2 text-sm leading-6 text-muted">
-              <li>
-                <span className="font-medium text-foreground">
+            <div className="space-y-8 border-l border-border pl-6">
+              {experience.map((job) => (
+                <article key={job.company} className="relative">
+                  <span className="absolute -left-[27px] top-1.5 size-2 rounded-full bg-[var(--nef-accent)] shadow-[0_0_0_3px_var(--color-background)]" />
+                  <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
+                    <h3 className="font-semibold text-foreground">
+                      {job.role} · {job.company}
+                    </h3>
+                    <p className="text-sm text-muted">{job.period}</p>
+                  </div>
+                  <p className="text-sm text-muted">{job.location}</p>
+                  <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted">
+                    {job.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <SectionHeading eyebrow="Background" title="Education" />
+            <ul className="space-y-3">
+              <li className="rounded-2xl border border-border p-4">
+                <p className="font-semibold text-foreground">
+                  B.S. Software Engineering
+                </p>
+                <p className="mt-1 text-sm text-muted">
                   Universidad Tecnológica de Bahía de Banderas
-                </span>{" "}
-                — B.S. Software Engineering (2014–2017)
+                </p>
+                <span className="mt-3 inline-block rounded-md bg-surface px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-muted">
+                  2014 – 2017
+                </span>
               </li>
-              <li>
-                <span className="font-medium text-foreground">
+              <li className="rounded-2xl border border-border p-4">
+                <p className="font-semibold text-foreground">
+                  English Language Scholarship
+                </p>
+                <p className="mt-1 text-sm text-muted">
                   Dominican University, Chicago
-                </span>{" "}
-                — English Scholarship (2014)
+                </p>
+                <span className="mt-3 inline-block rounded-md bg-surface px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-muted">
+                  2014
+                </span>
+              </li>
+              <li className="rounded-2xl border border-border bg-[var(--nef-accent-surface)] p-4">
+                <p className="font-semibold text-[var(--nef-accent-text)]">
+                  Asynchronous-ready
+                </p>
+                <p className="mt-1.5 text-sm leading-6 text-[var(--nef-accent-text)]">
+                  Six years across hybrid, remote, and fully distributed teams —
+                  bilingual written communication, timezone-agnostic handoffs,
+                  and decisions documented where the next person can find them.
+                </p>
               </li>
             </ul>
           </Reveal>
         </section>
+
+        {/* Latest posts */}
+        {latestPosts.length > 0 && (
+          <section
+            id="writing"
+            aria-labelledby="blog-heading"
+            className="border-t border-border py-16"
+          >
+            <Reveal>
+              <SectionHeading
+                id="blog-heading"
+                eyebrow="Writing"
+                title="Latest posts"
+              />
+              <div className="space-y-4">
+                {latestPosts.map((post) => (
+                  <PostCard key={post.slug} post={post} />
+                ))}
+              </div>
+              <div className="mt-6">
+                <Button asChild variant="outline">
+                  <Link href="/blog">View all posts</Link>
+                </Button>
+              </div>
+            </Reveal>
+          </section>
+        )}
 
         {/* Craft receipts */}
         <section
@@ -423,7 +487,7 @@ export default function Home() {
               </li>
               <li>
                 Every animation on this page — the scroll reveals, the view
-                transitions, the playground&apos;s own motion — honors{" "}
+                transitions, the interaction lab&apos;s own motion — honors{" "}
                 <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
                   prefers-reduced-motion
                 </code>
