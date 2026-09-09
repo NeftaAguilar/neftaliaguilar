@@ -273,10 +273,18 @@ async function fetchSentPosts(
 
     for (const edge of data.posts.edges) nodes.push(edge.node);
 
-    if (!data.posts.pageInfo.hasNextPage) break;
+    if (!data.posts.pageInfo.hasNextPage) return nodes;
     after = data.posts.pageInfo.endCursor;
-    if (!after) break;
+    if (!after) return nodes;
   }
+
+  // Falling out of the loop means the cap stopped a walk Buffer had more pages
+  // for. Every total, ranking and weekly bucket downstream is then computed
+  // from a partial archive, so say so rather than quietly under-reporting.
+  console.warn(
+    `[buffer] stopped at the ${MAX_PAGES}-page cap after ${nodes.length} posts; ` +
+      "Buffer has more. Totals and rankings are incomplete — raise MAX_PAGES.",
+  );
 
   return nodes;
 }

@@ -8,6 +8,16 @@ const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
 
 function subscribeToReducedMotion(onChange: () => void) {
   const media = window.matchMedia(reducedMotionQuery);
+
+  // Safari before 14, and some embedded webviews, expose only the deprecated
+  // addListener/removeListener pair. This is a runtime API rather than syntax,
+  // so transpilation doesn't cover it and the missing method would throw while
+  // the chart mounts.
+  if (typeof media.addEventListener !== "function") {
+    media.addListener(onChange);
+    return () => media.removeListener(onChange);
+  }
+
   media.addEventListener("change", onChange);
   return () => media.removeEventListener("change", onChange);
 }

@@ -61,7 +61,17 @@ function Unavailable() {
 function readStat(summary: WritingSummary, name: string): string | null {
   const widest = summary.byNetwork[0];
   const narrowest = summary.byNetwork.at(-1);
-  const topEarlier = summary.earlier[0];
+  // `earlier` is newest-first, but the prose calls this "the post at the top"
+  // of the ranking chart — which is ordered by reach. Pick it the same way.
+  const topEarlier = summary.earlier.reduce<
+    (typeof summary.earlier)[number] | undefined
+  >(
+    (best, post) =>
+      !best || post.metrics.impressions > best.metrics.impressions
+        ? post
+        : best,
+    undefined,
+  );
 
   switch (name) {
     case "posts":
