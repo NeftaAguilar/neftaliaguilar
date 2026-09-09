@@ -1,47 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { emailAddress, links } from "@/lib/links";
+import { setTheme, useIsDarkTheme } from "@/app/components/theme-toggle";
 import {
   Button,
   DropdownMenu,
-  Switch,
   Tabs,
   Toast,
   Tooltip,
   TooltipProvider,
 } from "@neftaliaguilar/ui";
 
-function subscribeToTheme(onChange: () => void) {
-  const observer = new MutationObserver(onChange);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["data-theme"],
-  });
-  return () => observer.disconnect();
-}
-
-function getThemeSnapshot() {
-  return document.documentElement.getAttribute("data-theme") === "dark";
-}
-
 export function HeroNefUiShowcase() {
-  const isDark = useSyncExternalStore(
-    subscribeToTheme,
-    getThemeSnapshot,
-    () => false,
-  );
+  const isDark = useIsDarkTheme();
   const [toastOpen, setToastOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-
-  const toggleTheme = (dark: boolean) => {
-    const next = dark ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", next);
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
-  };
 
   const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
     undefined,
@@ -68,16 +43,6 @@ export function HeroNefUiShowcase() {
             <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
               Live · @neftaliaguilar/ui
             </span>
-            <label className="flex items-center gap-2">
-              <span className="font-mono text-[10px] text-muted">
-                {isDark ? "Dark" : "Light"}
-              </span>
-              <Switch
-                checked={isDark}
-                onCheckedChange={toggleTheme}
-                aria-label="Toggle site theme"
-              />
-            </label>
           </div>
 
           <div className="px-4 pb-4 pt-3.5">
@@ -90,8 +55,8 @@ export function HeroNefUiShowcase() {
 
               <Tabs.Content value="actions">
                 <p className="mb-3 text-[13px] leading-relaxed text-muted">
-                  Real exports from the published package — the switch above
-                  changes the whole site&apos;s theme, not a sandboxed preview.
+                  Real exports from the published package, not a sandboxed
+                  preview — the same build the theme switch in the nav drives.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <Button variant="solid" size="sm">
@@ -139,7 +104,7 @@ export function HeroNefUiShowcase() {
                       View source on GitHub
                     </DropdownMenu.Item>
                     <DropdownMenu.Separator />
-                    <DropdownMenu.Item onSelect={() => toggleTheme(!isDark)}>
+                    <DropdownMenu.Item onSelect={() => setTheme(!isDark)}>
                       Switch to {isDark ? "light" : "dark"} theme
                     </DropdownMenu.Item>
                   </DropdownMenu.Content>

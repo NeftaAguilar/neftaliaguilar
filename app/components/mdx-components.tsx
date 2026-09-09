@@ -1,6 +1,12 @@
 import type { ComponentPropsWithoutRef } from "react";
 import Image from "next/image";
 import { MdxPlayground } from "./mdx-playground-lazy";
+import {
+  CrossPostFigure,
+  EngagementFigure,
+  ReachRankingFigure,
+  Stat,
+} from "./writing-mdx";
 
 function cx(...classes: Array<string | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -125,4 +131,10 @@ export const mdxComponents = {
   VideoEmbed,
   Image,
   MdxPlayground,
+  // Live publishing data, read from Buffer on the server. Each fetches through
+  // the same request-cached loader, so a post may embed as many as it needs.
+  Stat,
+  CrossPostFigure,
+  EngagementFigure,
+  ReachRankingFigure,
 };

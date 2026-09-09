@@ -68,6 +68,17 @@ body {
   }
 }
 
+/* Categorical chart palette. Two hues, fixed order — series one is the site
+   accent, series two its partner. Validated for colour-vision deficiency and
+   for 3:1 contrast against both the light (#f9f9fb) and dark (#18191b) chart
+   surfaces, which is why the same two values serve both themes rather than
+   being flipped per mode. Adding a third series means re-validating, not
+   guessing a hue. */
+:root {
+  --chart-series-1: #3e63dd;
+  --chart-series-2: #d9730d;
+}
+
 /* nef-ui's --nef-fg-muted is 3.1:1 (light) / 3.4:1 (dark) against its own
    background — under WCAG AA's 4.5:1 for normal text. This site leans on
    that token for body-sized copy (not just captions), so darken it here.
