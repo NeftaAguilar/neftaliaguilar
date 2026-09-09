@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import {
   AnimatePresence,
   animate,
@@ -51,12 +51,18 @@ const SEGMENTS = ["Design", "Build", "Ship"];
 
 function SegmentedSwitchDemo() {
   const [active, setActive] = useState(0);
+  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const onKeyDown = (e: React.KeyboardEvent) => {
+  const focusSegment = (index: number) => {
+    setActive(index);
+    buttonRefs.current[index]?.focus();
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent, index: number) => {
     if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
       e.preventDefault();
       const dir = e.key === "ArrowRight" ? 1 : -1;
-      setActive((a) => (a + dir + SEGMENTS.length) % SEGMENTS.length);
+      focusSegment((index + dir + SEGMENTS.length) % SEGMENTS.length);
     }
   };
 
@@ -64,9 +70,8 @@ function SegmentedSwitchDemo() {
     <div className="flex h-full flex-col items-center justify-center gap-3.5">
       <div
         role="tablist"
-        tabIndex={0}
-        onKeyDown={onKeyDown}
-        className="relative grid w-full max-w-[280px] grid-cols-3 rounded-xl border border-border bg-background p-1 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
+        aria-label="Workflow stage"
+        className="relative grid w-full max-w-[280px] grid-cols-3 rounded-xl border border-border bg-background p-1"
       >
         <motion.div
           animate={{ x: `${active * 100}%` }}
@@ -77,11 +82,16 @@ function SegmentedSwitchDemo() {
         {SEGMENTS.map((segment, i) => (
           <button
             key={segment}
+            ref={(el) => {
+              buttonRefs.current[i] = el;
+            }}
             type="button"
             role="tab"
             aria-selected={active === i}
-            onClick={() => setActive(i)}
-            className="relative z-10 rounded-lg px-3 py-2 text-[12.5px] font-semibold transition-colors duration-300"
+            tabIndex={active === i ? 0 : -1}
+            onClick={() => focusSegment(i)}
+            onKeyDown={(e) => onKeyDown(e, i)}
+            className="relative z-10 rounded-lg px-3 py-2 text-[12.5px] font-semibold transition-colors duration-300 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
             style={{
               color: active === i ? "var(--nef-bg)" : "var(--nef-fg-muted)",
             }}
@@ -109,9 +119,10 @@ function ToastEngineDemo() {
   const [toasts, setToasts] = useState<
     { id: number; title: string; meta: string }[]
   >([]);
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
-    const timers: ReturnType<typeof setTimeout>[] = [];
+    const timers = timersRef.current;
     return () => timers.forEach(clearTimeout);
   }, []);
 
@@ -122,12 +133,16 @@ function ToastEngineDemo() {
     const [title, meta] = TOAST_COPY[toastId % TOAST_COPY.length];
     const id = ++toastId;
     setToasts((t) => [{ id, title, meta }, ...t].slice(0, 3));
-    setTimeout(() => dismiss(id), 4200);
+    timersRef.current.push(setTimeout(() => dismiss(id), 4200));
   };
 
   return (
     <div className="flex h-full flex-col justify-between gap-3">
-      <div className="flex flex-col gap-2">
+      <div
+        className="flex flex-col gap-2"
+        aria-live="polite"
+        aria-atomic="false"
+      >
         <AnimatePresence initial={false}>
           {toasts.map((t) => (
             <motion.div
@@ -187,10 +202,14 @@ function CommandPaletteDemo() {
   const [query, setQuery] = useState("");
   const [cursor, setCursor] = useState(0);
   const [ran, setRan] = useState("");
+  const listboxId = useId();
 
   const filtered = COMMANDS.filter((c) =>
     c.label.toLowerCase().includes(query.trim().toLowerCase()),
   );
+  const activeOptionId = filtered[cursor]
+    ? `${listboxId}-option-${cursor}`
+    : undefined;
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
@@ -211,6 +230,11 @@ function CommandPaletteDemo() {
         <span className="font-mono text-[11px] text-muted/70">⌘K</span>
         <input
           type="text"
+          role="combobox"
+          aria-expanded="true"
+          aria-controls={listboxId}
+          aria-activedescendant={activeOptionId}
+          aria-autocomplete="list"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -221,10 +245,13 @@ function CommandPaletteDemo() {
           className="min-w-0 flex-1 border-none bg-transparent text-[13px] text-foreground outline-none placeholder:text-muted/60"
         />
       </div>
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col gap-0.5" role="listbox" id={listboxId}>
         {filtered.map((c, i) => (
           <button
             key={c.label}
+            id={`${listboxId}-option-${i}`}
+            role="option"
+            aria-selected={i === cursor}
             type="button"
             onClick={() => setRan(c.label)}
             className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-left transition-colors duration-150"

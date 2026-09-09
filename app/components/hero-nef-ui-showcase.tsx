@@ -43,9 +43,13 @@ export function HeroNefUiShowcase() {
   };
 
   const copyEmail = () => {
-    navigator.clipboard?.writeText("hola@neftaliaguilar.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    navigator.clipboard
+      ?.writeText("hola@neftaliaguilar.com")
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {});
   };
 
   return (
