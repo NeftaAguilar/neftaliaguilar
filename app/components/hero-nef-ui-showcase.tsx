@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { emailAddress, links } from "@/lib/links";
 import {
   Button,
   DropdownMenu,
@@ -42,12 +43,19 @@ export function HeroNefUiShowcase() {
     } catch {}
   };
 
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
+
+  useEffect(() => () => clearTimeout(copiedTimerRef.current), []);
+
   const copyEmail = () => {
     navigator.clipboard
-      ?.writeText("hola@neftaliaguilar.com")
+      ?.writeText(emailAddress)
       .then(() => {
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        clearTimeout(copiedTimerRef.current);
+        copiedTimerRef.current = setTimeout(() => setCopied(false), 2000);
       })
       .catch(() => {});
   };
@@ -125,10 +133,7 @@ export function HeroNefUiShowcase() {
                     <DropdownMenu.Item
                       shortcut="⌘G"
                       onSelect={() =>
-                        window.open(
-                          "https://github.com/NeftaAguilar/neftaliaguilar",
-                          "_blank",
-                        )
+                        window.open(links.source, "_blank", "noopener")
                       }
                     >
                       View source on GitHub

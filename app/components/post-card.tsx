@@ -1,14 +1,7 @@
 import Link from "next/link";
 import { ViewTransition } from "react";
 import type { PostMeta } from "@/lib/posts";
-
-function formatDate(date: string) {
-  return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
+import { formatDate } from "@/lib/format";
 
 export function PostCard({ post }: { post: PostMeta }) {
   return (
