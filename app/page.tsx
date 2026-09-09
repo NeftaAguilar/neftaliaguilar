@@ -5,7 +5,7 @@ import { PostCard } from "@/app/components/post-card";
 import { WorkCard } from "@/app/components/work-card";
 import { Reveal } from "@/app/components/reveal";
 import { SiteNav } from "@/app/components/site-nav";
-import { HeroSpringDemo } from "@/app/components/hero-spring-demo";
+import { HeroNefUiShowcase } from "@/app/components/hero-nef-ui-showcase";
 import { SkillsMarquee } from "@/app/components/skills-marquee";
 import { InteractionLab } from "@/app/components/interaction-lab";
 import { getLatestPosts } from "@/lib/posts";
@@ -203,7 +203,7 @@ export default function Home() {
           </div>
         </div>
 
-        <HeroSpringDemo />
+        <HeroNefUiShowcase />
       </header>
 
       <div className="mx-auto w-full max-w-5xl px-6 sm:px-8">
