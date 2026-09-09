@@ -35,12 +35,12 @@ function TooltipShell({
   rows: { label: string; value: string }[];
 }) {
   return (
-    <div className="max-w-[260px] rounded-lg border border-border bg-background px-3 py-2 shadow-[var(--nef-shadow-2)]">
-      <p className="mb-1 text-[13px] font-semibold leading-snug text-foreground">
+    <div className="max-w-64 rounded-lg border border-border bg-background px-3 py-2 shadow-[var(--nef-shadow-2)]">
+      <p className="mb-1 text-xs font-semibold leading-snug text-foreground">
         {title}
       </p>
       {rows.map((row) => (
-        <p key={row.label} className="font-mono text-[11px] text-muted">
+        <p key={row.label} className="font-mono text-xs text-muted">
           {row.label}: <span className="text-foreground">{row.value}</span>
         </p>
       ))}
@@ -104,7 +104,7 @@ export function CrossPostChart({ data }: { data: CrossPostDatum[] }) {
         </tbody>
       </table>
 
-      <div aria-hidden="true" className="h-[260px] w-full">
+      <div aria-hidden="true" className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}
@@ -137,7 +137,7 @@ export function CrossPostChart({ data }: { data: CrossPostDatum[] }) {
               align="left"
               height={28}
               formatter={(value) => (
-                <span className="text-[12px] text-muted">{value}</span>
+                <span className="text-xs text-muted">{value}</span>
               )}
             />
             <Bar
@@ -222,7 +222,7 @@ export function EngagementScatter({
         </tbody>
       </table>
 
-      <div aria-hidden="true" className="h-[280px] w-full">
+      <div aria-hidden="true" className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart
             margin={{ top: 4, right: 16, bottom: 24, left: 0 }}
@@ -265,7 +265,7 @@ export function EngagementScatter({
               align="left"
               height={28}
               formatter={(value) => (
-                <span className="text-[12px] text-muted">{value}</span>
+                <span className="text-xs text-muted">{value}</span>
               )}
             />
             {series.map((group, index) => (
@@ -338,7 +338,7 @@ export function ReachRankingChart({ data }: { data: RankedDatum[] }) {
         </tbody>
       </table>
 
-      <div aria-hidden="true" className="h-[320px] w-full">
+      <div aria-hidden="true" className="h-80 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}

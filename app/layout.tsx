@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { MotionConfig } from "motion/react";
+import { SiteNav } from "@/app/components/site-nav";
 import "@neftaliaguilar/ui/styles.css";
 import "./globals.css";
 
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        <SiteNav />
         <MotionConfig reducedMotion="user">{children}</MotionConfig>
         <Analytics />
       </body>

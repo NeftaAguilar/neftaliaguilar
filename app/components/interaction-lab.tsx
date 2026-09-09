@@ -29,18 +29,18 @@ function LabCard({
           <h3 className="text-base font-semibold tracking-tight text-foreground">
             {title}
           </h3>
-          <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">
+          <p className="mt-1.5 text-sm leading-relaxed text-muted">
             {description}
           </p>
         </div>
-        <span className="whitespace-nowrap rounded-md bg-[var(--nef-accent-surface)] px-2 py-1 font-mono text-[9.5px] uppercase tracking-[0.1em] text-[var(--nef-accent-text)]">
+        <span className="whitespace-nowrap rounded-md bg-[var(--nef-accent-surface)] px-2 py-1 font-mono text-xs uppercase tracking-widest text-[var(--nef-accent-text)]">
           {tag}
         </span>
       </div>
-      <div className="min-h-[168px] rounded-xl border border-border bg-surface p-4">
+      <div className="min-h-44 rounded-xl border border-border bg-surface p-4">
         {children}
       </div>
-      <div className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+      <div className="font-mono text-xs uppercase tracking-widest text-muted">
         {footer}
       </div>
     </article>
@@ -71,7 +71,7 @@ function SegmentedSwitchDemo() {
       <div
         role="tablist"
         aria-label="Workflow stage"
-        className="relative grid w-full max-w-[280px] grid-cols-3 rounded-xl border border-border bg-background p-1"
+        className="relative grid w-full max-w-72 grid-cols-3 rounded-xl border border-border bg-background p-1"
       >
         <motion.div
           animate={{ x: `${active * 100}%` }}
@@ -91,7 +91,7 @@ function SegmentedSwitchDemo() {
             tabIndex={active === i ? 0 : -1}
             onClick={() => focusSegment(i)}
             onKeyDown={(e) => onKeyDown(e, i)}
-            className="relative z-10 rounded-lg px-3 py-2 text-[12.5px] font-semibold transition-colors duration-300 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
+            className="relative z-10 rounded-lg px-3 py-2 text-xs font-semibold transition-colors duration-300 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
             style={{
               color: active === i ? "var(--nef-bg)" : "var(--nef-fg-muted)",
             }}
@@ -100,9 +100,7 @@ function SegmentedSwitchDemo() {
           </button>
         ))}
       </div>
-      <p className="font-mono text-[10px] text-muted">
-        active: {SEGMENTS[active]}
-      </p>
+      <p className="font-mono text-xs text-muted">active: {SEGMENTS[active]}</p>
     </div>
   );
 }
@@ -183,20 +181,18 @@ function ToastEngineDemo() {
               transition={{ duration: 0.32, ease: [0.2, 1.1, 0.3, 1] }}
               className="flex items-center gap-2.5 rounded-lg border border-border bg-background px-3 py-2.5 shadow-[var(--nef-shadow-1)]"
             >
-              <span className="grid size-5.5 shrink-0 place-items-center rounded-md bg-[var(--nef-accent-surface)] font-mono text-[11px] text-[var(--nef-accent-text)]">
+              <span className="grid size-5.5 shrink-0 place-items-center rounded-md bg-[var(--nef-accent-surface)] font-mono text-xs text-[var(--nef-accent-text)]">
                 ✓
               </span>
               <div className="min-w-0 flex-1">
-                <div className="text-[12.5px] font-semibold">{t.title}</div>
-                <div className="font-mono text-[9.5px] text-muted">
-                  {t.meta}
-                </div>
+                <div className="text-xs font-semibold">{t.title}</div>
+                <div className="font-mono text-xs text-muted">{t.meta}</div>
               </div>
               <button
                 type="button"
                 onClick={() => dismiss(t.id)}
                 aria-label="Dismiss notification"
-                className="font-mono text-[11px] text-muted hover:text-foreground"
+                className="font-mono text-xs text-muted hover:text-foreground"
               >
                 ✕
               </button>
@@ -204,7 +200,7 @@ function ToastEngineDemo() {
           ))}
         </AnimatePresence>
         {toasts.length === 0 && (
-          <p className="px-0.5 py-2 font-mono text-[10px] text-muted">
+          <p className="px-0.5 py-2 font-mono text-xs text-muted">
             queue empty — trigger one ↓
           </p>
         )}
@@ -256,7 +252,7 @@ function CommandPaletteDemo() {
   return (
     <div className="flex h-full flex-col gap-2.5">
       <div className="flex items-center gap-2 rounded-lg border border-border bg-background px-2.5 py-2">
-        <span className="font-mono text-[11px] text-muted">⌘K</span>
+        <span className="font-mono text-xs text-muted">⌘K</span>
         <input
           type="text"
           role="combobox"
@@ -271,7 +267,7 @@ function CommandPaletteDemo() {
           }}
           onKeyDown={onKeyDown}
           placeholder="Type a command…"
-          className="min-w-0 flex-1 border-none bg-transparent text-[13px] text-foreground outline-none placeholder:text-muted"
+          className="min-w-0 flex-1 border-none bg-transparent text-xs text-foreground outline-none placeholder:text-muted"
         />
       </div>
       <div className="flex flex-col gap-0.5" role="listbox" id={listboxId}>
@@ -289,20 +285,18 @@ function CommandPaletteDemo() {
                 i === cursor ? "var(--nef-accent-surface)" : "transparent",
             }}
           >
-            <span className="w-4 font-mono text-[10px] text-muted">
-              {c.icon}
-            </span>
-            <span className="flex-1 text-[12.5px] font-medium">{c.label}</span>
-            <span className="font-mono text-[9.5px] text-muted">{c.hint}</span>
+            <span className="w-4 font-mono text-xs text-muted">{c.icon}</span>
+            <span className="flex-1 text-xs font-medium">{c.label}</span>
+            <span className="font-mono text-xs text-muted">{c.hint}</span>
           </button>
         ))}
         {filtered.length === 0 && (
-          <div className="px-2.5 py-2 font-mono text-[10px] text-muted">
+          <div className="px-2.5 py-2 font-mono text-xs text-muted">
             no matches
           </div>
         )}
       </div>
-      <div className="mt-auto font-mono text-[10px] text-[var(--nef-accent-text)]">
+      <div className="mt-auto font-mono text-xs text-[var(--nef-accent-text)]">
         {ran
           ? `ran → ${ran}`
           : `${COMMANDS.length} actions · 0 pointer events required`}
@@ -371,7 +365,7 @@ function VitalsDemo() {
         >
           {LCP_TARGET.toFixed(2)}s
         </div>
-        <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+        <div className="mt-1 font-mono text-xs uppercase tracking-widest text-muted">
           LCP
         </div>
       </div>
@@ -382,7 +376,7 @@ function VitalsDemo() {
         >
           {INP_TARGET}ms
         </div>
-        <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+        <div className="mt-1 font-mono text-xs uppercase tracking-widest text-muted">
           INP
         </div>
       </div>
@@ -390,18 +384,18 @@ function VitalsDemo() {
         <div className="text-2xl font-semibold tracking-tight tabular-nums">
           {CLS_TARGET.toFixed(3)}
         </div>
-        <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+        <div className="mt-1 font-mono text-xs uppercase tracking-widest text-muted">
           CLS
         </div>
       </div>
       <div className="col-span-3 flex flex-wrap gap-1.5 border-t border-border pt-3">
-        <span className="rounded-md bg-[var(--nef-accent-surface)] px-1.5 py-1 font-mono text-[9.5px] text-[var(--nef-accent-text)]">
+        <span className="rounded-md bg-[var(--nef-accent-surface)] px-1.5 py-1 font-mono text-xs text-[var(--nef-accent-text)]">
           Accessibility 100
         </span>
-        <span className="rounded-md bg-[var(--nef-accent-surface)] px-1.5 py-1 font-mono text-[9.5px] text-[var(--nef-accent-text)]">
+        <span className="rounded-md bg-[var(--nef-accent-surface)] px-1.5 py-1 font-mono text-xs text-[var(--nef-accent-text)]">
           SEO 100
         </span>
-        <span className="rounded-md border border-border px-1.5 py-1 font-mono text-[9.5px] text-muted">
+        <span className="rounded-md border border-border px-1.5 py-1 font-mono text-xs text-muted">
           Contrast fixed to 4.5:1
         </span>
       </div>

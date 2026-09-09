@@ -46,7 +46,7 @@ export function ThemeToggle({ className }: { className?: string }) {
 
   return (
     <label className={`flex items-center gap-2 ${className ?? ""}`}>
-      <span className="font-mono text-[10px] text-muted">
+      <span className="font-mono text-xs text-muted">
         {isDark ? "Dark" : "Light"}
       </span>
       <Switch
