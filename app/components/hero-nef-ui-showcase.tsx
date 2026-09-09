@@ -128,7 +128,7 @@ export function HeroNefUiShowcase() {
           </div>
 
           <div className="border-t border-border px-4 py-3">
-            <p className="mb-1.5 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted/70">
+            <p className="mb-1.5 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
               CSS Modules · Radix Primitives · Motion
             </p>
             <Link

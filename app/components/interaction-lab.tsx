@@ -40,7 +40,7 @@ function LabCard({
       <div className="min-h-[168px] rounded-xl border border-border bg-surface p-4">
         {children}
       </div>
-      <div className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted/70">
+      <div className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
         {footer}
       </div>
     </article>
@@ -100,7 +100,7 @@ function SegmentedSwitchDemo() {
           </button>
         ))}
       </div>
-      <p className="font-mono text-[10px] text-muted/80">
+      <p className="font-mono text-[10px] text-muted">
         active: {SEGMENTS[active]}
       </p>
     </div>
@@ -188,7 +188,7 @@ function ToastEngineDemo() {
               </span>
               <div className="min-w-0 flex-1">
                 <div className="text-[12.5px] font-semibold">{t.title}</div>
-                <div className="font-mono text-[9.5px] text-muted/80">
+                <div className="font-mono text-[9.5px] text-muted">
                   {t.meta}
                 </div>
               </div>
@@ -196,7 +196,7 @@ function ToastEngineDemo() {
                 type="button"
                 onClick={() => dismiss(t.id)}
                 aria-label="Dismiss notification"
-                className="font-mono text-[11px] text-muted/70 hover:text-foreground"
+                className="font-mono text-[11px] text-muted hover:text-foreground"
               >
                 ✕
               </button>
@@ -204,7 +204,7 @@ function ToastEngineDemo() {
           ))}
         </AnimatePresence>
         {toasts.length === 0 && (
-          <p className="px-0.5 py-2 font-mono text-[10px] text-muted/70">
+          <p className="px-0.5 py-2 font-mono text-[10px] text-muted">
             queue empty — trigger one ↓
           </p>
         )}
@@ -256,7 +256,7 @@ function CommandPaletteDemo() {
   return (
     <div className="flex h-full flex-col gap-2.5">
       <div className="flex items-center gap-2 rounded-lg border border-border bg-background px-2.5 py-2">
-        <span className="font-mono text-[11px] text-muted/70">⌘K</span>
+        <span className="font-mono text-[11px] text-muted">⌘K</span>
         <input
           type="text"
           role="combobox"
@@ -271,7 +271,7 @@ function CommandPaletteDemo() {
           }}
           onKeyDown={onKeyDown}
           placeholder="Type a command…"
-          className="min-w-0 flex-1 border-none bg-transparent text-[13px] text-foreground outline-none placeholder:text-muted/60"
+          className="min-w-0 flex-1 border-none bg-transparent text-[13px] text-foreground outline-none placeholder:text-muted"
         />
       </div>
       <div className="flex flex-col gap-0.5" role="listbox" id={listboxId}>
@@ -289,17 +289,15 @@ function CommandPaletteDemo() {
                 i === cursor ? "var(--nef-accent-surface)" : "transparent",
             }}
           >
-            <span className="w-4 font-mono text-[10px] text-muted/70">
+            <span className="w-4 font-mono text-[10px] text-muted">
               {c.icon}
             </span>
             <span className="flex-1 text-[12.5px] font-medium">{c.label}</span>
-            <span className="font-mono text-[9.5px] text-muted/60">
-              {c.hint}
-            </span>
+            <span className="font-mono text-[9.5px] text-muted">{c.hint}</span>
           </button>
         ))}
         {filtered.length === 0 && (
-          <div className="px-2.5 py-2 font-mono text-[10px] text-muted/70">
+          <div className="px-2.5 py-2 font-mono text-[10px] text-muted">
             no matches
           </div>
         )}
