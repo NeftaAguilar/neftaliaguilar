@@ -152,7 +152,7 @@ export default function Home() {
   const caseStudies = getAllCaseStudies();
 
   return (
-    <div className="flex flex-1 flex-col bg-background text-foreground">
+    <div className="flex flex-1 flex-col bg-background text-foreground md:mt-20">
       {/* Hero */}
       <header className="mx-auto grid w-full max-w-5xl gap-8 px-6 pb-10 pt-12 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
         <HeroIntro />
@@ -392,13 +392,6 @@ export default function Home() {
                 </code>{" "}
                 token — on every interactive element that didn&apos;t already
                 have one.
-              </li>
-              <li>
-                The design system&apos;s default muted-text color measured 3.1:1
-                against its own background — under WCAG AA&apos;s 4.5:1 for body
-                text. Darkened it here (site-only override, the published token
-                is unchanged) since this site leans on it for more than
-                captions.
               </li>
               <li>
                 Every animation on this page — the scroll reveals, the view
