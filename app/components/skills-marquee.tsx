@@ -25,7 +25,7 @@ export function SkillsMarquee() {
             {group.map((skill, j) => (
               <span
                 key={`${skill}-${j}`}
-                className="whitespace-nowrap px-5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted transition-colors duration-[var(--nef-duration-fast)] hover:text-foreground"
+                className="whitespace-nowrap px-5 font-mono text-xs uppercase tracking-widest text-muted transition-colors duration-[var(--nef-duration-fast)] hover:text-foreground"
               >
                 {skill}
               </span>

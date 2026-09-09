@@ -34,10 +34,10 @@ function ChartTooltip({ active, payload }: ChartTooltipProps) {
   const { rangeLabel, posts } = point;
   return (
     <div className="rounded-lg border border-border bg-background px-2.5 py-1.5 shadow-[var(--nef-shadow-2)]">
-      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
+      <p className="font-mono text-xs uppercase tracking-widest text-muted">
         {rangeLabel}
       </p>
-      <p className="text-[13px] font-semibold text-foreground">
+      <p className="text-xs font-semibold text-foreground">
         {posts} {posts === 1 ? "post" : "posts"}
       </p>
     </div>
@@ -69,7 +69,7 @@ export function BufferChart({ weeks }: { weeks: BufferWeek[] }) {
         </tbody>
       </table>
 
-      <div aria-hidden="true" className="h-[104px] w-full">
+      <div aria-hidden="true" className="h-28 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={weeks}

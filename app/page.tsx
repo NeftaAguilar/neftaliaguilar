@@ -4,7 +4,6 @@ import { SectionHeading } from "@/app/components/section-heading";
 import { PostCard } from "@/app/components/post-card";
 import { WorkCard } from "@/app/components/work-card";
 import { Reveal } from "@/app/components/reveal";
-import { SiteNav } from "@/app/components/site-nav";
 import { HeroIntro } from "@/app/components/hero-intro";
 import { HeroBufferCard } from "@/app/components/hero-buffer-card";
 import { SkillsMarquee } from "@/app/components/skills-marquee";
@@ -153,9 +152,7 @@ export default function Home() {
   const caseStudies = getAllCaseStudies();
 
   return (
-    <div className="flex flex-1 flex-col bg-background text-foreground">
-      <SiteNav />
-
+    <div className="flex flex-1 flex-col bg-background text-foreground md:mt-20">
       {/* Hero */}
       <header className="mx-auto grid w-full max-w-5xl gap-8 px-6 pb-10 pt-12 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
         <HeroIntro />
@@ -182,7 +179,7 @@ export default function Home() {
               eyebrow="Craft, running live"
               title="The interaction lab"
             />
-            <p className="-mt-6 mb-8 max-w-2xl text-base leading-7 text-muted">
+            <p className="mt-4 mb-8 max-w-2xl text-base leading-7 text-muted">
               Touch anything below. Four interactions, hand-built on this
               site&apos;s own{" "}
               <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
@@ -296,7 +293,7 @@ export default function Home() {
                 <p className="mt-1 text-sm text-muted">
                   Universidad Tecnológica de Bahía de Banderas
                 </p>
-                <span className="mt-3 inline-block rounded-md bg-surface px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-muted">
+                <span className="mt-3 inline-block rounded-md bg-surface px-2 py-1 font-mono text-xs uppercase tracking-widest text-muted">
                   2014 – 2017
                 </span>
               </li>
@@ -307,7 +304,7 @@ export default function Home() {
                 <p className="mt-1 text-sm text-muted">
                   Dominican University, Chicago
                 </p>
-                <span className="mt-3 inline-block rounded-md bg-surface px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-muted">
+                <span className="mt-3 inline-block rounded-md bg-surface px-2 py-1 font-mono text-xs uppercase tracking-widest text-muted">
                   2014
                 </span>
               </li>
@@ -395,13 +392,6 @@ export default function Home() {
                 </code>{" "}
                 token — on every interactive element that didn&apos;t already
                 have one.
-              </li>
-              <li>
-                The design system&apos;s default muted-text color measured 3.1:1
-                against its own background — under WCAG AA&apos;s 4.5:1 for body
-                text. Darkened it here (site-only override, the published token
-                is unchanged) since this site leans on it for more than
-                captions.
               </li>
               <li>
                 Every animation on this page — the scroll reveals, the view

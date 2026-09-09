@@ -45,11 +45,11 @@ export async function HeroBufferCard() {
   return (
     <div className="overflow-hidden rounded-2xl bg-background shadow-[0_1px_2px_rgba(0,0,0,.06),0_20px_44px_-24px_rgba(0,0,0,.28)]">
       <div className="flex items-center justify-between gap-3 border-b border-border bg-surface px-4 py-2.5">
-        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
+        <span className="font-mono text-xs uppercase tracking-widest text-muted">
           Buffer · last {WEEKS_SHOWN} weeks
         </span>
         {metricsUpdatedAt && (
-          <span className="font-mono text-[10px] text-muted">
+          <span className="font-mono text-xs text-muted">
             {freshnessFormatter.format(new Date(metricsUpdatedAt))}
           </span>
         )}
@@ -59,7 +59,7 @@ export async function HeroBufferCard() {
         <dl className="mb-3 grid grid-cols-3 gap-3">
           {tiles.map((tile) => (
             <div key={tile.label}>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
+              <dt className="font-mono text-xs uppercase tracking-widest text-muted">
                 {tile.label}
               </dt>
               <dd className="mt-0.5 text-xl font-semibold tabular-nums text-foreground">
@@ -71,7 +71,7 @@ export async function HeroBufferCard() {
 
         <BufferChart weeks={weeks} />
 
-        <p className="mt-3 text-[13px] leading-relaxed text-muted">
+        <p className="mt-3 text-xs leading-relaxed text-muted">
           Live from{" "}
           <Link
             href="https://developers.buffer.com"
@@ -95,7 +95,7 @@ export async function HeroBufferCard() {
 
         <Link
           href="/blog/writing-in-public"
-          className="mt-3 inline-flex items-center gap-1 rounded-sm text-[13px] font-semibold text-[var(--nef-accent-text)] transition-colors duration-[var(--nef-duration-fast)] ease-[var(--nef-ease-out)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
+          className="mt-3 inline-flex items-center gap-1 rounded-sm text-xs font-semibold text-[var(--nef-accent-text)] transition-colors duration-[var(--nef-duration-fast)] ease-[var(--nef-ease-out)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
         >
           What the numbers taught me
           <span aria-hidden="true">&rarr;</span>

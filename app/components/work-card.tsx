@@ -1,12 +1,22 @@
+"use client";
+
 import Link from "next/link";
 import { ViewTransition } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import type { CaseStudyMeta } from "@/lib/work";
 
+const MotionLink = motion.create(Link);
+
 export function WorkCard({ study }: { study: CaseStudyMeta }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <Link
+    <MotionLink
       href={`/work/${study.slug}`}
-      className="group block rounded-2xl border border-border p-5 transition-[transform,border-color,box-shadow] duration-[var(--nef-duration-normal)] ease-[var(--nef-ease-out)] hover:-translate-y-1 hover:border-border-strong hover:shadow-[var(--nef-shadow-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)]"
+      className="group block rounded-2xl border border-border p-5 transition-[border-color,box-shadow] duration-[var(--nef-duration-normal)] ease-[var(--nef-ease-out)] hover:border-border-strong hover:shadow-[var(--nef-shadow-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nef-focus-ring)] motion-reduce:transition-none"
+      whileHover={shouldReduceMotion ? undefined : { y: -4 }}
+      whileTap={shouldReduceMotion ? undefined : { y: -1, scale: 0.99 }}
+      transition={{ type: "spring", stiffness: 420, damping: 32 }}
     >
       <p className="text-sm text-muted">
         {study.role} · {study.period}
@@ -29,6 +39,6 @@ export function WorkCard({ study }: { study: CaseStudyMeta }) {
           ))}
         </ul>
       )}
-    </Link>
+    </MotionLink>
   );
 }
